@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-black: #030604;
+  --line-neon: #37ff88;
+  --hover-green: #173c28;
+  --text-primary: #e9f3ec;
+  --text-secondary: #9aac9f;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --border-subtle: 1px solid color-mix(in srgb, var(--line-neon) 32%, transparent);
+  --shadow-panel: 0 10px 30px rgba(0, 0, 0, 0.38);
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.24);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--bg-black);
+  --color-neon-line: var(--line-neon);
+  --color-hover-green: var(--hover-green);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-black);
+  color: var(--text-primary);
+  font-family:
+    Inter,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+@layer components {
+  .surface-block {
+    background: rgba(0, 0, 0, 0.88);
+    border: var(--border-subtle);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+    backdrop-filter: blur(2px);
+  }
+
+  .surface-capsule {
+    background: rgba(0, 0, 0, 0.9);
+    border: var(--border-subtle);
+    border-radius: 999px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .text-muted {
+    color: var(--text-secondary);
+  }
+
+  .interactive-line {
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .interactive-line:hover {
+    color: var(--line-neon);
+    background-color: color-mix(in srgb, var(--hover-green) 58%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
