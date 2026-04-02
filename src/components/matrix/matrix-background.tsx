@@ -91,8 +91,29 @@ export function MatrixBackground() {
     let config: MatrixConfig = MATRIX_TUNING.desktop;
     let lastTime = 0;
 
+    const MOBILE_MAX_WIDTH = 767;
+
+    const isMobileLayout = () => window.innerWidth <= MOBILE_MAX_WIDTH;
+
     const getConfig = (): MatrixConfig =>
-      window.innerWidth < 768 ? MATRIX_TUNING.mobile : MATRIX_TUNING.desktop;
+      isMobileLayout() ? MATRIX_TUNING.mobile : MATRIX_TUNING.desktop;
+
+    /** Mobile: size canvas to document height so it scrolls with content; cap GPU cost on very long pages. */
+    const MOBILE_CANVAS_HEIGHT_CAP = 12000;
+
+    const getCanvasDimensions = () => {
+      const width = window.innerWidth;
+      const innerH = window.innerHeight;
+      const scrollH = document.documentElement.scrollHeight;
+      if (!isMobileLayout()) {
+        return { width, height: innerH };
+      }
+      const height = Math.min(
+        Math.max(innerH, scrollH),
+        MOBILE_CANVAS_HEIGHT_CAP,
+      );
+      return { width, height };
+    };
 
     const drawStaticReduced = () => {
       ctx.fillStyle = "rgba(0, 0, 0, 1)";
@@ -111,8 +132,9 @@ export function MatrixBackground() {
     };
 
     const initialize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      const dims = getCanvasDimensions();
+      width = dims.width;
+      height = dims.height;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
@@ -222,12 +244,26 @@ export function MatrixBackground() {
     window.addEventListener("resize", onResize);
     mediaQuery.addEventListener("change", onMotionChange);
 
+    const scrollRoot = document.documentElement;
+    const onDocResize = () => {
+      if (!isMobileLayout()) return;
+      onResize();
+    };
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => {
+            window.requestAnimationFrame(onDocResize);
+          })
+        : null;
+    resizeObserver?.observe(scrollRoot);
+
     return () => {
       if (frameId) {
         window.cancelAnimationFrame(frameId);
       }
       window.removeEventListener("resize", onResize);
       mediaQuery.removeEventListener("change", onMotionChange);
+      resizeObserver?.disconnect();
     };
   }, []);
 
@@ -235,7 +271,7 @@ export function MatrixBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0"
+      className="pointer-events-none inset-0 z-0 max-md:absolute md:fixed"
     />
   );
 }

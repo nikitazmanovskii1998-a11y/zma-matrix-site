@@ -27,14 +27,20 @@ export async function SiteFrame({ locale, dictionary, children }: SiteFrameProps
       privacyLabel={dictionary.ui.privacy}
       offerLabel={dictionary.ui.offer}
     >
-      <MatrixBackground />
-      <Preloader lines={preloaderLines} />
-      <div className="relative z-10 flex min-h-screen min-w-0 flex-col overflow-x-clip">
-        <PageContainer>
-          <SiteHeader locale={locale} dictionary={dictionary} />
-          <div className="mt-5 w-full min-w-0 flex-1">{children}</div>
-          <SiteFooter locale={locale} dictionary={dictionary} />
-        </PageContainer>
+      {/*
+        Mobile: matrix is absolute inside this relative wrapper so it scrolls with the document
+        (avoids iOS/Android fixed-vs-visual-viewport “slip”). Desktop: matrix stays position:fixed.
+      */}
+      <div className="relative min-h-screen min-w-0 overflow-x-clip">
+        <MatrixBackground />
+        <Preloader lines={preloaderLines} />
+        <div className="relative z-10 flex min-h-screen min-w-0 flex-col">
+          <PageContainer>
+            <SiteHeader locale={locale} dictionary={dictionary} />
+            <div className="mt-5 w-full min-w-0 flex-1">{children}</div>
+            <SiteFooter locale={locale} dictionary={dictionary} />
+          </PageContainer>
+        </div>
       </div>
     </CookieConsentProvider>
   );
