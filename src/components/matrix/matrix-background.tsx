@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 const PRIMARY_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const SECONDARY_SYMBOLS =
@@ -73,7 +73,7 @@ const randomSpeed = (config: MatrixConfig) => rand(config.minSpeed, config.maxSp
 export function MatrixBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -104,12 +104,14 @@ export function MatrixBackground() {
     const getCanvasDimensions = () => {
       const width = window.innerWidth;
       const innerH = window.innerHeight;
-      const scrollH = document.documentElement.scrollHeight;
       if (!isMobileLayout()) {
         return { width, height: innerH };
       }
+      const parent = canvas.parentElement;
+      const parentH = parent ? parent.offsetHeight : 0;
+      const scrollH = document.documentElement.scrollHeight;
       const height = Math.min(
-        Math.max(innerH, scrollH),
+        Math.max(innerH, parentH, scrollH, 1),
         MOBILE_CANVAS_HEIGHT_CAP,
       );
       return { width, height };
@@ -241,21 +243,28 @@ export function MatrixBackground() {
       frameId = window.requestAnimationFrame(step);
     }
 
+    /* After layout: parent.offsetHeight / scrollHeight are reliable (fixes invisible mobile canvas). */
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        initialize();
+      });
+    });
+
     window.addEventListener("resize", onResize);
     mediaQuery.addEventListener("change", onMotionChange);
 
-    const scrollRoot = document.documentElement;
-    const onDocResize = () => {
+    const parentEl = canvas.parentElement;
+    const onParentResize = () => {
       if (!isMobileLayout()) return;
       onResize();
     };
     const resizeObserver =
-      typeof ResizeObserver !== "undefined"
+      typeof ResizeObserver !== "undefined" && parentEl
         ? new ResizeObserver(() => {
-            window.requestAnimationFrame(onDocResize);
+            window.requestAnimationFrame(onParentResize);
           })
         : null;
-    resizeObserver?.observe(scrollRoot);
+    resizeObserver?.observe(parentEl as Element);
 
     return () => {
       if (frameId) {
