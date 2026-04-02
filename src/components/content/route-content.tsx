@@ -31,13 +31,16 @@ export async function RouteContent({
   }
 
   const dictionary = await getDictionary(lang);
-  const page = dictionary.pages[pageKey];
+  const page = dictionary.pages?.[pageKey] ?? {
+    title: pageKey,
+    body: "",
+  };
 
   return (
     <ContentBlock
       title={page.title}
       body={page.body}
-      note={showLegalTodo ? dictionary.ui.placeholderNote : undefined}
+      note={showLegalTodo ? (dictionary.ui?.placeholderNote ?? "") : undefined}
     />
   );
 }

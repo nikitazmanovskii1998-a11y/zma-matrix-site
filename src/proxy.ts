@@ -5,6 +5,13 @@ import { getPreferredLocale } from "@/lib/get-preferred-locale";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  /* `public/` is served at the site root. A locale prefix would break URLs like
+   * `/media/hero/...` (redirect to `/en/media/...` → 404, broken <img>). */
+  if (pathname.startsWith("/media/")) {
+    return NextResponse.next();
+  }
+
   const firstSegment = pathname.split("/").filter(Boolean)[0];
 
   const pathnameHasLocale = firstSegment ? hasLocale(firstSegment) : false;

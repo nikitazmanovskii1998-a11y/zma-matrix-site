@@ -1,0 +1,591 @@
+import type { SiteDictionary } from "@/i18n/types";
+
+export const projectsPageEn: SiteDictionary["projectsPage"] = {
+  seo: {
+    pageMetaTitle: "ZMA Resulting projects — website, Telegram & automation case studies",
+    pageMetaDescription:
+      "Digital project examples: business website case studies, brand environments, Telegram workflows, automation case studies, and SEO structure work—a case layer, not a screenshot gallery.",
+  },
+  hero: {
+    eyebrow: "Digital environments, not a trophy wall",
+    title: "Projects are not “pretty screens”—they show how a business is structured online",
+    subtitle:
+      "Website, Telegram, automation, and SEO-structure patterns—each format anchored in task, architecture, and room to scale.",
+    body:
+      "The ZMA Resulting projects grid is a typology of digital builds: corporate and expert sites, premium brand layers, focused product landings, Telegram bot and assistant flows, form→CRM automation case studies, SEO and site-structure work, and full-stack contours. No fabricated metrics—an honest scaffold until live work replaces it.",
+    primaryCta: "Discuss the task",
+    secondaryCta: "Short brief",
+    microLine: "Scope and format follow your inputs—not a generic rate-card guess.",
+  },
+  filters: {
+    all: { label: "All", shortHint: "All digital project types in one feed" },
+    websites: { label: "Websites", shortHint: "Business website examples—structure first, not templates" },
+    brandEnvironments: {
+      label: "Brand environments",
+      shortHint: "Brand digital layers—grid, type, disciplined UI",
+    },
+    telegram: { label: "Telegram", shortHint: "Telegram project examples—bots, assistants, routing" },
+    automation: { label: "Automation", shortHint: "Automation case studies—leads, CRM, alerts" },
+    seoGrowth: { label: "SEO / Growth", shortHint: "SEO and structure case studies for organic demand" },
+    inDevelopment: { label: "In development", shortHint: "Formats currently active in the studio pipeline" },
+  },
+  filterOrder: [
+    "all",
+    "websites",
+    "brandEnvironments",
+    "telegram",
+    "automation",
+    "seoGrowth",
+    "inDevelopment",
+  ],
+  cards: [
+    {
+      card: {
+        slug: "corporate-company-site",
+        filterKey: "websites",
+        category: "Websites",
+        title: "Corporate company website",
+        subtitle: "A digital layer built for scrutiny and trust",
+        shortDescription:
+          "Corporate site as a level check: lines of business, hierarchy, calm tone—so people know who they are dealing with before the call.",
+        hoverLine: "A frame for positioning—not an “about us for its own sake” maze.",
+        badge1: "Corporate",
+        badge2: "Architecture",
+        badge3: "Trust",
+        status: "Solution type",
+        openLabel: "View the format logic",
+      },
+      modal: {
+        eyebrow: "Company website",
+        title: "Corporate digital front",
+        intro:
+          "Built for companies where the site is part of scrutiny: who you are, what you do, how engagement works—without noisy filler.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Template storefronts fail the attention test: meaning drifts, navigation does not drive a decision, trust does not stack where partners and buyers actually check you.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Page architecture mapped to business goals and audience segments.",
+          "Expertise and scale presented without clutter or visual noise.",
+          "Inquiry and contact paths tied to real sales—who owns the lead and what lands in CRM or messenger.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Section hierarchy and flows from first touch to intent.",
+          "Visual language and tone aligned with the company brand.",
+          "Forms, trust points, and baseline integrations for launch and later growth.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Sharper market read, a composed digital layer, and a clear path to inquiry—measured in inbound quality, not invented multiplier claims.",
+        fitTitle: "A fit if",
+        fitText: "B2B and service firms where your business website must survive comparison and internal quality bars.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Aligned structure and page logic before build.",
+          "Production implementation and operational handoff.",
+          "A base for content, SEO structure, and channel expansion.",
+          "Scenario and conversion notes for the team.",
+        ],
+        note: "Public snippets rarely equal full scope—some logic stays inside process and access.",
+        ctaPrimary: "Scope it for the company",
+        ctaSecondary: "Ask about structure",
+      },
+    },
+    {
+      card: {
+        slug: "consulting-expert-site",
+        filterKey: "websites",
+        category: "Websites",
+        title: "Consulting & expert practice site",
+        subtitle: "Complex services in clear blocks",
+        shortDescription:
+          "Expertise in structure: the buyer’s question, your answer, the next step—without “we are the best at everything” walls.",
+        hoverLine: "Narrow services need meaning discipline: what you solve and for whom, stated plainly.",
+        badge1: "Expert",
+        badge2: "Services",
+        badge3: "Conversion",
+        status: "Solution type",
+        openLabel: "Open the approach",
+      },
+      modal: {
+        eyebrow: "Expert-led business",
+        title: "Expert and service website",
+        intro:
+          "Consulting and specialized services sell through clarity: pain removed, audience contour, what happens after reading—without vague “we do it all.”",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Expertise stalls when the site is long copy without a frame: unclear who it is for, why now, and what to click next.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Offer and segments: who the site is for and the next step per visitor type.",
+          "Proof and objection blocks without water or repetition.",
+          "One dominant route: brief, book, call, or calendar—matched to your funnel.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Page map for discover → compare → contact flows.",
+          "Trust module: process, principles, people—kept honest.",
+          "Capture wired to CRM or Telegram as needed.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Value reads faster, weak pre-contact questions drop, dialogue quality rises—people arrive knowing why they write.",
+        fitTitle: "A fit if",
+        fitText: "Consultancies, studios, and expert practices where the site filters and amplifies—not a PDF on a domain.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Content structure and page scenarios.",
+          "Visual execution within brand or a new system.",
+          "Build, forms, and baseline integrations.",
+          "Pointers for growing sections and content post-launch.",
+        ],
+        note: "Named logos and stats are optional—task clarity and logic matter more.",
+        ctaPrimary: "Frame the page map",
+        ctaSecondary: "Send a service outline",
+      },
+    },
+    {
+      card: {
+        slug: "brand-visual-system-site",
+        filterKey: "brandEnvironments",
+        category: "Brand environments",
+        title: "Premium brand website",
+        subtitle: "Digital environment for a visual system",
+        shortDescription:
+          "Premium brand site: grid, type, and UI behavior aligned with identity—no marketplace theme stretched over a logo.",
+        hoverLine: "The digital layer should elevate the product—not hide weak narrative behind imagery.",
+        badge1: "Brand",
+        badge2: "Premium",
+        badge3: "Digital environment",
+        status: "Solution type",
+        openLabel: "View the presentation system",
+      },
+      modal: {
+        eyebrow: "Premium website",
+        title: "Site built around a visual system",
+        intro:
+          "A brand digital experience: the web extends visual language and product character—not a stock shell with a logo swap.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Strong offline, weak web: the brand reads generic online and the product looks cheaper than reality.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Identity translated into grid, screen rhythm, and component behavior.",
+          "Product narrative with editorial discipline.",
+          "Component rules so new pages scale without style drift.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Design system or rules for states and templates.",
+          "Templates for the brand’s core scenarios.",
+          "Production build with headroom for content and new sections.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "A coherent website for a brand: recognizable, composed, structured—reads as authored work, not conveyor output.",
+        fitTitle: "A fit if",
+        fitText: "Brands and products that need character and UI discipline—not a template landing.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Key scenario layouts and aligned component set.",
+          "Responsive implementation and front-end handoff.",
+          "Form setup and integrations as required.",
+          "Usage notes for extending pages responsibly.",
+        ],
+        note: "Content and shoots can run parallel—page logic lands before decoration-only tasks.",
+        ctaPrimary: "Sync with the brief",
+        ctaSecondary: "Request a visual contour",
+      },
+    },
+    {
+      card: {
+        slug: "product-offer-landing",
+        filterKey: "websites",
+        category: "Websites",
+        title: "Product or offer landing",
+        subtitle: "One focus—one route",
+        shortDescription:
+          "One product, one flow: value, proof, action—no stray “also see” detours or accidental mini-catalogs.",
+        hoverLine: "Launches hinge on focus: what they buy and what they do on-screen.",
+        badge1: "Product",
+        badge2: "Landing",
+        badge3: "Offer",
+        status: "Solution type",
+        openLabel: "Open the flow scenario",
+      },
+      modal: {
+        eyebrow: "Product landing",
+        title: "A single sharp path for the offer",
+        intro:
+          "A landing for a product or package: one primary page outcome and one dominant action—conversion structure without block sprawl.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Attention scatters: too many parallel ideas, a weak primary action, the offer does not compress into one line.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "One page goal and one main action—everything else secondary or cut.",
+          "Value, proof, and risk reversal in an order that leads to action.",
+          "Mobile-first clarity and fast comprehension.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Scroll or step flow tailored to the product.",
+          "Form, messenger, or scheduling—scoped to your capture stack.",
+          "Analytics hooks and a path for post-launch iteration.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Tighter conversion structure: faster “what this is” and “what next,” less noise between intent and the request.",
+        fitTitle: "A fit if",
+        fitText: "Product, bundle, or campaign launches that need one core offer and a predictable lead path.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Block structure and copy alignment with you.",
+          "Design and build of the landing.",
+          "Form wiring and notifications.",
+          "A short checklist for post-launch tests.",
+        ],
+        note: "We do not sell guaranteed percentage lifts—only disciplined structure and a sharp offer.",
+        ctaPrimary: "Lock the offer",
+        ctaSecondary: "Send a product summary",
+      },
+    },
+    {
+      card: {
+        slug: "telegram-bot-lead-routing",
+        filterKey: "telegram",
+        category: "Telegram",
+        title: "Telegram bot for inbound",
+        subtitle: "Routing and discipline at the door",
+        shortDescription:
+          "Messenger inbound as a scenario: branches, fields, CRM or operator handoff—context preserved in the thread.",
+        hoverLine: "The bot encodes process: who arrived, with what need, what must happen next.",
+        badge1: "Telegram bot",
+        badge2: "Routing",
+        badge3: "Leads",
+        status: "Solution type",
+        openLabel: "View the bot scenario",
+      },
+      modal: {
+        eyebrow: "Telegram bot",
+        title: "Capture and routing scenario",
+        intro:
+          "For dense messenger volume: dialog as a branching script with validation and data pushed to CRM or a human.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Threads handled manually: tone drifts, lost chats, duplicates, unclear who owns the complex case.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Dialog map for request types: question, lead, support, partnership.",
+          "Field capture with validation and clear user-facing errors.",
+          "Handoff to CRM, sheets, email, or an owner in Telegram—with tags.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Bot logic and step copy.",
+          "Integrations and webhooks on the agreed contour.",
+          "Escalation when the request exceeds the script.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Predictable lead routing, less manual sorting, human handoff with data already collected.",
+        fitTitle: "A fit if",
+        fitText: "Teams with steady Telegram inbound or site-to-messenger lead routing.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Scenario spec and dialog prototype.",
+          "Bot implementation and test runs.",
+          "Connections to chosen systems.",
+          "Guide for editing copy and branches.",
+        ],
+        note: "Rules and stability first—no “smart AI” promises that break the process.",
+        ctaPrimary: "Draft the scenario",
+        ctaSecondary: "Map the inbound flow",
+      },
+    },
+    {
+      card: {
+        slug: "telegram-assistant-first-layer",
+        filterKey: "telegram",
+        category: "Telegram",
+        title: "Telegram assistant",
+        subtitle: "First-line communication with guardrails",
+        shortDescription:
+          "First line in Telegram by rules: FAQ, light qualification, one tone—and handoff to people with context.",
+        hoverLine: "The assistant holds a competence boundary: what it closes vs. what goes straight to an expert.",
+        badge1: "Assistant",
+        badge2: "First line",
+        badge3: "Support",
+        status: "Solution type",
+        openLabel: "How first-line works",
+      },
+      modal: {
+        eyebrow: "Telegram assistant",
+        title: "Communication layer with escalation",
+        intro:
+          "For steady inbound: answer base, micro-qualification, brand tone, and strict rules for when a human steps in.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Repeat questions burn time, answers drift in style, there is no single entry point or history for the rep.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Matrix: what the assistant covers vs. what escalates immediately.",
+          "FAQ and short clarification flows before transfer.",
+          "Context and logging on handoff to a person.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Response architecture and escalation triggers.",
+          "Optional CRM or sheet integration.",
+          "Tone, off-limits topics, and phrasing boundaries.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Stable first touch, less internal noise, predictable sales and support at the door.",
+        fitTitle: "A fit if",
+        fitText: "Projects with constant messenger volume where consistency and first-response speed matter.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Scenario map and phrasing library.",
+          "Assistant implementation in Telegram.",
+          "Escalation and notification rules.",
+          "Update guide for answers.",
+        ],
+        note: "This format is about control—open-ended “full AI” without rails is out of scope.",
+        ctaPrimary: "Review the first line",
+        ctaSecondary: "Send sample threads",
+      },
+    },
+    {
+      card: {
+        slug: "form-crm-telegram-flow",
+        filterKey: "automation",
+        category: "Automation",
+        title: "Form → CRM → Telegram",
+        subtitle: "Workflow automation without manual relay",
+        shortDescription:
+          "Form → CRM → alert to owners: one chain instead of copying into chats and sheets.",
+        hoverLine: "Every event knows its destination and who must react.",
+        badge1: "CRM",
+        badge2: "Workflow",
+        badge3: "Integrations",
+        status: "Solution type",
+        openLabel: "Open the lead loop",
+      },
+      modal: {
+        eyebrow: "Automation",
+        title: "End-to-end lead handling loop",
+        intro:
+          "An automation case study pattern: site and forms tied to CRM and alerts—data does not stall in email or multiply by hand.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Leads sit in parallel inboxes and chats: slow replies, drops, unclear owner of the next step.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Event map: source → field normalization → assignment and status.",
+          "Integrations via API, webhooks, or connectors for your stack.",
+          "Notifications and status signals for owners.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Flow from form submit to CRM record or deal.",
+          "Alert routing to Telegram and email as needed.",
+          "Failure handling for retries and edge cases.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Faster lead response, quieter operations, predictable handling—without “digitize everything in a week” fantasy.",
+        fitTitle: "A fit if",
+        fitText: "You need site leads to leave one digital trail in CRM with clear responsibility.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Integration diagram and field mapping.",
+          "Configured connections and test runs.",
+          "Team notes on statuses and ownership.",
+          "A short backlog for post-launch tweaks.",
+        ],
+        note: "Stacks differ—details follow a systems review, not a pre-call guess.",
+        ctaPrimary: "Draw the integration map",
+        ctaSecondary: "List your current tools",
+      },
+    },
+    {
+      card: {
+        slug: "seo-structure-search-contour",
+        filterKey: "seoGrowth",
+        category: "SEO / Growth",
+        title: "SEO structure & search contour",
+        subtitle: "Foundation for organic demand and page meaning",
+        shortDescription:
+          "Skeleton for organic demand: URL architecture, technical baseline, page meaning—no stack of thin “SEO pages.”",
+        hoverLine: "Search visibility grows from IA and a clean base—not rank guarantees.",
+        badge1: "SEO foundation",
+        badge2: "Structure",
+        badge3: "Organic",
+        status: "Solution type",
+        openLabel: "View the search contour",
+      },
+      modal: {
+        eyebrow: "SEO & growth",
+        title: "Search-ready layer after a solid base",
+        intro:
+          "An SEO and site-structure case pattern: technical hygiene, semantics, and landings aligned to intent—organic tied to the product story.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Pages fight for the same intent, tech noise stacks, internal links do not support goals—growth hits the foundation.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Structure and critical technical review.",
+          "Semantic clusters without thin pages for volume.",
+          "Page plan tied to commercial goals and real queries.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "URL hierarchy and internal linking for intent and product.",
+          "Technical fixes or dev-ready specs.",
+          "Metadata patterns and scalable blocks.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Clearer search presence, disciplined pages, honest horizon—measured in structure quality, not promised “top ranks.”",
+        fitTitle: "A fit if",
+        fitText: "Live or launching sites that need SEO foundation tied to business logic—not a one-off link bundle.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Findings on structure and priorities.",
+          "Technical and content task list.",
+          "Page template guidance.",
+          "Optional support window—by agreement.",
+        ],
+        note: "Tough niches need time—we set horizon before work starts, not after.",
+        ctaPrimary: "Audit the SEO base",
+        ctaSecondary: "Sync with site launch",
+      },
+    },
+    {
+      card: {
+        slug: "redesign-legacy-to-presence",
+        filterKey: "websites",
+        category: "Websites",
+        title: "Redesign of a dated presence",
+        subtitle: "From legacy to a strong digital layer",
+        shortDescription:
+          "When the site lags the company: new IA, narrative, and mobile logic—not cosmetic paint on old structure.",
+        hoverLine: "Redesign starts with what fails in meaning and architecture.",
+        badge1: "Redesign",
+        badge2: "Migration",
+        badge3: "Presence",
+        status: "Solution type",
+        openLabel: "See the redesign approach",
+      },
+      modal: {
+        eyebrow: "Redesign",
+        title: "From outdated site to new presentation",
+        intro:
+          "Rebuild for where the business is now: what to keep in traffic and meaning, what to cut, how to migrate URLs without trust or search damage.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Legacy pulls the brand down: tangled structure, weak mobile UX, visuals below how the company actually operates.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Content and scenario audit: migrate, rewrite, or remove.",
+          "New information architecture and design for today’s strategy.",
+          "URL migration and redirects with search intent in mind.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "New section model and templates.",
+          "Updated front-end, forms, and conversion points.",
+          "Analytics checkpoints after relaunch.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Faster read on what you do, calmer first impressions, cleaner paths to inquiry—no fake traffic explosion claims.",
+        fitTitle: "A fit if",
+        fitText: "Your digital presence lags real scale, process quality, and service level.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Migration plan, risks, and control points.",
+          "New design and build.",
+          "Form and integration setup.",
+          "Post-launch checklist for SEO and content.",
+        ],
+        note: "Legacy depth sets scope—sometimes a fresh frame beats endless patching.",
+        ctaPrimary: "Review the legacy",
+        ctaSecondary: "Send the current site",
+      },
+    },
+    {
+      card: {
+        slug: "site-automation-growth-system",
+        filterKey: "inDevelopment",
+        category: "In development",
+        title: "Site + automation + growth",
+        subtitle: "One digital system for the project",
+        shortDescription:
+          "One intent across three layers: on-site narrative, lead ops, long organic channel—coherent, not three vendors.",
+        hoverLine: "A system beats a scattered backlog: everything should connect in one contour.",
+        badge1: "System",
+        badge2: "Automation",
+        badge3: "Growth",
+        status: "Solution type",
+        openLabel: "Open the system contour",
+      },
+      modal: {
+        eyebrow: "System contour",
+        title: "Digital environment around core processes",
+        intro:
+          "A full-stack digital project example: site as trust and narrative hub, automation as CRM glue, SEO structure as the long inbound leg—on one roadmap.",
+        problemTitle: "Where the story breaks",
+        problemText:
+          "Site, CRM, and growth sit apart: leads die at seams, SEO ignores IA, teams patch manually.",
+        solutionTitle: "What this solution type is",
+        solutionItems: [
+          "Single map: presentation → capture → processing → feedback to channels.",
+          "Phased build: core first, then amplification without priority chaos.",
+          "Explicit dependencies and task owners between phases.",
+        ],
+        architectureTitle: "What gets wired into the system",
+        architectureItems: [
+          "Site with forms and stack-specific integrations.",
+          "Workflow automation between systems.",
+          "SEO and content base with a realistic roadmap.",
+        ],
+        effectTitle: "Outcome (logic-level)",
+        effectText:
+          "Tighter marketing–ops alignment, clearer lead path, digital presence that behaves as a system—not a task list.",
+        fitTitle: "A fit if",
+        fitText: "You need a connected layer for scale—not another site isolated from everything else.",
+        deliverablesTitle: "What the client receives",
+        deliverablesItems: [
+          "Roadmap with phases and dependencies.",
+          "Delivery of agreed layers per phase estimate.",
+          "Integration documentation and ownership notes.",
+          "Checkpoints after each milestone.",
+        ],
+        note: "“Everything at once” rarely ships clean—we stage verifiable steps.",
+        ctaPrimary: "Build the roadmap",
+        ctaSecondary: "Open the brief",
+      },
+    },
+  ],
+  disclosureBlock: {
+    title: "Not everything belongs on a public grid—and that is fine",
+    body:
+      "Strong automation and internal contours rarely fit a public tile: scenarios, credentials, and sensitive logic do not survive a screenshot without losing meaning or breaking confidentiality.",
+    bullet1: "The grid maps digital project types—not a full catalog of closed systems.",
+    bullet2: "Integrations, funnels, and Telegram infrastructure often sit outside the portfolio edge.",
+    bullet3: "We review relevant examples in context when needed—including under NDA.",
+    cta: "Request case examples for your task",
+  },
+  finalCta: {
+    title: "You need a working digital system—not a decorative page",
+    subtitle:
+      "Websites, brand layers, Telegram, lead automation, and SEO foundations—as linked layers, not unrelated tickets.",
+    body: "Call or brief: structure, scope, timing, and next step—without deck theater.",
+    primaryCta: "Go to contact",
+    secondaryCta: "Open the brief",
+    microNote: "A short task note is enough to tighten the plan.",
+  },
+};

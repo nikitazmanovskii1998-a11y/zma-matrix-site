@@ -1,9 +1,64 @@
-import { RouteContent } from "@/components/content/route-content";
+import { getDictionary } from "@/i18n/get-dictionary";
+import { hasLocale } from "@/i18n/locales";
+import { localizedPageMetadata } from "@/lib/page-metadata";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) {
+    return {};
+  }
+  const dictionary = await getDictionary(lang);
+  const { seo } = dictionary.offerPage;
+  return localizedPageMetadata(lang, "offer", seo.pageMetaTitle, seo.pageMetaDescription);
+}
 
 export default async function OfferPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }) {
-  return <RouteContent pageKey="offer" params={params} showLegalTodo />;
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+  const dictionary = await getDictionary(lang);
+  const page = dictionary.offerPage;
+
+  return (
+    <div className="min-w-0 space-y-6 md:space-y-8">
+      <section className="surface-block surface-section">
+        <p className="idea-detail text-neon-line">{page.hero.eyebrow}</p>
+        <h1 className="page-hero-title mt-3">{page.hero.title}</h1>
+        <p className="page-hero-lead mt-4 max-w-3xl">{page.hero.subtitle}</p>
+        <p className="idea-detail mt-4">
+          {page.hero.updatedLabel}: {page.hero.updatedValue}
+        </p>
+        <p className="idea-support mt-5 max-w-4xl whitespace-pre-line">{page.hero.intro}</p>
+        <p className="idea-detail mt-5 max-w-3xl">{page.microcopy.shortOfferNote}</p>
+        <p className="body-hint mt-2 max-w-3xl">{page.microcopy.disclaimerLine}</p>
+      </section>
+      {page.sectionOrder.map((key) => {
+        const section = page.sections[key];
+        return (
+          <section key={key} className="surface-block surface-section">
+            <h2 className="page-section-h2">{section.title}</h2>
+            <div className="idea-support mt-4 space-y-2.5">
+              {section.body ? <p className="whitespace-pre-line">{section.body}</p> : null}
+              {section.bullets?.length ? (
+                <ul className="list-disc space-y-1.5 pl-5">
+                  {section.bullets.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  );
 }
