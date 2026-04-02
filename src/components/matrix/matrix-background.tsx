@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const PRIMARY_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const SECONDARY_SYMBOLS =
@@ -40,14 +40,17 @@ const MATRIX_TUNING: { desktop: MatrixConfig; mobile: MatrixConfig } = {
   mobile: {
     fontSize: 15,
     columnWidth: 14,
-    trailFade: 0.22,
+    trailFade: 0.2,
     minTailLength: 6,
     maxTailLength: 12,
     minSpeed: 6,
     maxSpeed: 11,
-    mutationRate: 0.04,
+    mutationRate: 0.045,
   },
 };
+
+const MOBILE_MAX_WIDTH = 767;
+const MOBILE_RESIZE_DEBOUNCE_MS = 140;
 
 const rand = (min: number, max: number) => min + Math.random() * (max - min);
 
@@ -70,10 +73,25 @@ const randomTailLength = (config: MatrixConfig) =>
 
 const randomSpeed = (config: MatrixConfig) => rand(config.minSpeed, config.maxSpeed);
 
+/** CSS pixels for the visible viewport — VisualViewport tracks mobile browser chrome; fallback inner. */
+function readViewportCssPixels(): { width: number; height: number } {
+  const vv = window.visualViewport;
+  if (vv && vv.width >= 64 && vv.height >= 64) {
+    return {
+      width: Math.max(1, Math.round(vv.width)),
+      height: Math.max(1, Math.round(vv.height)),
+    };
+  }
+  return {
+    width: Math.max(1, window.innerWidth),
+    height: Math.max(1, window.innerHeight),
+  };
+}
+
 export function MatrixBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -91,31 +109,10 @@ export function MatrixBackground() {
     let config: MatrixConfig = MATRIX_TUNING.desktop;
     let lastTime = 0;
 
-    const MOBILE_MAX_WIDTH = 767;
-
     const isMobileLayout = () => window.innerWidth <= MOBILE_MAX_WIDTH;
 
     const getConfig = (): MatrixConfig =>
       isMobileLayout() ? MATRIX_TUNING.mobile : MATRIX_TUNING.desktop;
-
-    /** Mobile: size canvas to document height so it scrolls with content; cap GPU cost on very long pages. */
-    const MOBILE_CANVAS_HEIGHT_CAP = 12000;
-
-    const getCanvasDimensions = () => {
-      const width = window.innerWidth;
-      const innerH = window.innerHeight;
-      if (!isMobileLayout()) {
-        return { width, height: innerH };
-      }
-      const parent = canvas.parentElement;
-      const parentH = parent ? parent.offsetHeight : 0;
-      const scrollH = document.documentElement.scrollHeight;
-      const height = Math.min(
-        Math.max(innerH, parentH, scrollH, 1),
-        MOBILE_CANVAS_HEIGHT_CAP,
-      );
-      return { width, height };
-    };
 
     const drawStaticReduced = () => {
       ctx.fillStyle = "rgba(0, 0, 0, 1)";
@@ -134,7 +131,7 @@ export function MatrixBackground() {
     };
 
     const initialize = () => {
-      const dims = getCanvasDimensions();
+      const dims = readViewportCssPixels();
       width = dims.width;
       height = dims.height;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -215,12 +212,23 @@ export function MatrixBackground() {
       frameId = window.requestAnimationFrame(step);
     };
 
-    const onResize = () => {
+    const onResizeImmediate = () => {
       initialize();
       if (!reducedMotion && frameId === 0) {
         lastTime = performance.now();
         frameId = window.requestAnimationFrame(step);
       }
+    };
+
+    let mobileResizeTimer: number | undefined;
+    const onResize = () => {
+      if (isMobileLayout()) {
+        window.clearTimeout(mobileResizeTimer);
+        mobileResizeTimer = window.setTimeout(onResizeImmediate, MOBILE_RESIZE_DEBOUNCE_MS);
+        return;
+      }
+      window.clearTimeout(mobileResizeTimer);
+      onResizeImmediate();
     };
 
     const onMotionChange = (event: MediaQueryListEvent) => {
@@ -243,36 +251,24 @@ export function MatrixBackground() {
       frameId = window.requestAnimationFrame(step);
     }
 
-    /* After layout: parent.offsetHeight / scrollHeight are reliable (fixes invisible mobile canvas). */
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        initialize();
-      });
-    });
-
     window.addEventListener("resize", onResize);
     mediaQuery.addEventListener("change", onMotionChange);
 
-    const parentEl = canvas.parentElement;
-    const onParentResize = () => {
-      if (!isMobileLayout()) return;
-      onResize();
-    };
-    const resizeObserver =
-      typeof ResizeObserver !== "undefined" && parentEl
-        ? new ResizeObserver(() => {
-            window.requestAnimationFrame(onParentResize);
-          })
-        : null;
-    resizeObserver?.observe(parentEl as Element);
+    const vv = window.visualViewport;
+    if (vv) {
+      vv.addEventListener("resize", onResize);
+    }
 
     return () => {
+      window.clearTimeout(mobileResizeTimer);
       if (frameId) {
         window.cancelAnimationFrame(frameId);
       }
       window.removeEventListener("resize", onResize);
       mediaQuery.removeEventListener("change", onMotionChange);
-      resizeObserver?.disconnect();
+      if (vv) {
+        vv.removeEventListener("resize", onResize);
+      }
     };
   }, []);
 
@@ -280,7 +276,7 @@ export function MatrixBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none inset-0 z-0 max-md:absolute md:fixed"
+      className="pointer-events-none fixed inset-0 z-0 min-h-[100dvh] w-full min-w-full"
     />
   );
 }
