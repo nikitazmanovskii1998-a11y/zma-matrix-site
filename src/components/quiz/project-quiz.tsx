@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FormSuccessModal } from "@/components/forms/form-success-modal";
+import { YandexSmartCaptchaField } from "@/components/forms/yandex-smart-captcha";
 import {
   FORM_ERROR_STRIP_CLASS,
   FORM_ERROR_TEXT_CLASS,
@@ -27,6 +28,8 @@ import type { SiteDictionary } from "@/i18n/types";
 import { isValidEmail } from "@/lib/form-validation";
 import { isValidInternationalPhone } from "@/lib/phone-international";
 import { toLocalizedPath } from "@/lib/locale-path";
+import { trackLeadQuiz } from "@/lib/analytics";
+import { leadSubmitFailureMessage } from "@/lib/lead-form-error-message";
 import { formatQuizAnswersForLead, quizServiceLine } from "@/lib/quiz-answers-format";
 import { submitLead } from "@/lib/submit-lead";
 
@@ -83,8 +86,21 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
   const [privacyConsent, setPrivacyConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [submitErrorMessage, setSubmitErrorMessage] = useState<string | null>(null);
   const [contactsShowErrors, setContactsShowErrors] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
+  const [captchaClientError, setCaptchaClientError] = useState(false);
+
+  const captchaEnabled = Boolean(
+    process.env.NEXT_PUBLIC_YANDEX_SMARTCAPTCHA_SITE_KEY?.trim(),
+  );
+
+  const onCaptchaTokenChange = useCallback((token: string | null) => {
+    setCaptchaToken(token);
+    setCaptchaClientError(false);
+    setSubmitErrorMessage(null);
+  }, []);
 
   const ariaClose = resolveModalCloseLabel(dictionary);
   const privacyHref = toLocalizedPath(locale, "privacy");
@@ -168,7 +184,7 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
   const setField = (questionId: string, fieldId: string, value: string) => {
     if (questionId === "contacts") {
       setContactsShowErrors(false);
-      setSubmitError(false);
+      setSubmitErrorMessage(null);
     }
     setAnswers((prev) => ({ ...prev, [`${questionId}.${fieldId}`]: value }));
   };
@@ -186,7 +202,12 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
         setConsentError(true);
         return;
       }
-      setSubmitError(false);
+      if (captchaEnabled && !captchaToken?.trim()) {
+        setCaptchaClientError(true);
+        return;
+      }
+      setSubmitErrorMessage(null);
+      setCaptchaClientError(false);
       setSubmitting(true);
       const name = contactName;
       const phone = contactPhone;
@@ -199,12 +220,17 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
         email: contactEmail,
         telegramOrMax: String(answers["contacts.telegram"] ?? "").trim(),
         comment: formatQuizAnswersForLead(questions, answers),
+        smartCaptchaToken: captchaToken?.trim() || undefined,
       });
       setSubmitting(false);
       if (!result.ok) {
-        setSubmitError(true);
+        setSubmitErrorMessage(leadSubmitFailureMessage(formUi, result));
+        setCaptchaResetKey((k) => k + 1);
         return;
       }
+      trackLeadQuiz();
+      setCaptchaToken(null);
+      setCaptchaResetKey((k) => k + 1);
       finishBrief();
       return;
     }
@@ -353,40 +379,57 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
         ) : null}
 
         {isContactsStep ? (
-          <div className="mt-6 min-w-0 max-w-2xl">
-            <div className="flex gap-3 sm:gap-3.5">
-              <GlassToggle
-                id="quiz-privacy-toggle"
-                checked={privacyConsent}
-                onCheckedChange={onPrivacyToggle}
-                invalid={consentInvalid}
-                disabled={submitting}
-                aria-labelledby="quiz-consent-label"
-              />
-              <p
-                id="quiz-consent-label"
-                className="min-w-0 flex-1 text-sm leading-relaxed text-text-secondary"
-              >
-                <span className="text-text-secondary">{formUi.consentPrefix}</span>
-                <Link
-                  href={privacyHref}
-                  className="interactive-line text-neon-line/90 underline decoration-neon-line/35 underline-offset-2 transition-colors hover:text-neon-line"
+          <>
+            <div className="mt-6 min-w-0 max-w-2xl">
+              <div className="flex gap-3 sm:gap-3.5">
+                <GlassToggle
+                  id="quiz-privacy-toggle"
+                  checked={privacyConsent}
+                  onCheckedChange={onPrivacyToggle}
+                  invalid={consentInvalid}
+                  disabled={submitting}
+                  aria-labelledby="quiz-consent-label"
+                />
+                <p
+                  id="quiz-consent-label"
+                  className="min-w-0 flex-1 text-sm leading-relaxed text-text-secondary"
                 >
-                  {formUi.consentPrivacyLink}
-                </Link>
-                <span className="text-text-secondary">{formUi.consentSuffix}</span>
-              </p>
+                  <span className="text-text-secondary">{formUi.consentPrefix}</span>
+                  <Link
+                    href={privacyHref}
+                    className="interactive-line text-neon-line/90 underline decoration-neon-line/35 underline-offset-2 transition-colors hover:text-neon-line"
+                  >
+                    {formUi.consentPrivacyLink}
+                  </Link>
+                  <span className="text-text-secondary">{formUi.consentSuffix}</span>
+                </p>
+              </div>
+              {consentInvalid ? (
+                <p
+                  id="quiz-consent-error"
+                  className={`${FORM_ERROR_TEXT_CLASS} mt-2`}
+                  role="alert"
+                >
+                  {formUi.consentRequired}
+                </p>
+              ) : null}
             </div>
-            {consentInvalid ? (
-              <p
-                id="quiz-consent-error"
-                className={`${FORM_ERROR_TEXT_CLASS} mt-2`}
-                role="alert"
-              >
-                {formUi.consentRequired}
-              </p>
+            {captchaEnabled ? (
+              <div className="mt-4 min-w-0 space-y-2">
+                <YandexSmartCaptchaField
+                  locale={locale}
+                  resetKey={captchaResetKey}
+                  onTokenChange={onCaptchaTokenChange}
+                  disabled={submitting}
+                />
+                {captchaClientError ? (
+                  <p className={FORM_ERROR_TEXT_CLASS} role="alert">
+                    {formUi.captchaRequired}
+                  </p>
+                ) : null}
+              </div>
             ) : null}
-          </div>
+          </>
         ) : null}
 
         <p
@@ -395,9 +438,9 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
           {quiz.helper}
         </p>
 
-        {submitError ? (
+        {submitErrorMessage ? (
           <div className={`${FORM_ERROR_STRIP_CLASS} mt-4`} role="alert">
-            <p className={FORM_ERROR_TEXT_CLASS}>{formUi.submitError}</p>
+            <p className={FORM_ERROR_TEXT_CLASS}>{submitErrorMessage}</p>
           </div>
         ) : null}
 

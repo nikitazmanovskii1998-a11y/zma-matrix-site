@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { SiteFrame } from "@/components/layout/site-frame";
+import { OrganizationAndWebSiteJsonLd } from "@/components/seo/json-ld";
 import { getDictionary } from "@/i18n/get-dictionary";
-import { hasLocale, locales } from "@/i18n/locales";
+import { hasLocale, locales, type Locale } from "@/i18n/locales";
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -22,5 +23,12 @@ export default async function LocaleLayout({
 
   const dictionary = await getDictionary(lang);
 
-  return <SiteFrame locale={lang} dictionary={dictionary}>{children}</SiteFrame>;
+  return (
+    <>
+      <OrganizationAndWebSiteJsonLd locale={lang as Locale} />
+      <SiteFrame locale={lang as Locale} dictionary={dictionary}>
+        {children}
+      </SiteFrame>
+    </>
+  );
 }

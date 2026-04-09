@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { CookieConsentProvider } from "@/components/cookies/cookie-consent-provider";
 import { Preloader } from "@/components/ui/preloader";
+import { SiteFrameChrome } from "@/components/seo/site-frame-chrome";
 
 type SiteFrameProps = {
   locale: Locale;
@@ -27,6 +28,7 @@ export async function SiteFrame({ locale, dictionary, children }: SiteFrameProps
       privacyLabel={dictionary.ui.privacy}
       offerLabel={dictionary.ui.offer}
     >
+      <SiteFrameChrome />
       <MatrixBackground />
       <Preloader lines={preloaderLines} />
       <div className="relative z-10 flex min-h-screen min-w-0 flex-col overflow-x-clip">

@@ -15,6 +15,9 @@ const secondaryFont = Commissioner({
   variable: "--font-secondary",
 });
 
+const googleVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
+const yandexVerification = process.env.YANDEX_VERIFICATION?.trim();
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: "ZMA Resulting",
@@ -23,6 +26,14 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
+  ...(googleVerification || yandexVerification
+    ? {
+        verification: {
+          ...(googleVerification ? { google: googleVerification } : {}),
+          ...(yandexVerification ? { yandex: yandexVerification } : {}),
+        },
+      }
+    : {}),
 };
 
 /** Lets `env(safe-area-inset-*)` reflect device notches when used with fixed layers. */

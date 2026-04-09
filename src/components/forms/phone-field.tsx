@@ -57,17 +57,20 @@ export function PhoneField({
   const [selectedRowId, setSelectedRowId] = useState(getDefaultCountryRow().id);
   const [portalPos, setPortalPos] = useState({ top: 0, left: 0, width: 280 });
 
-  const rows = listCountryRows();
+  const rows = useMemo(() => listCountryRows(), []);
 
   useEffect(() => {
-    if (!value.trim()) {
-      setSelectedRowId(getDefaultCountryRow().id);
-      return;
-    }
-    setSelectedRowId((prev) => {
-      const m = matchCountryFromE164(value, prev);
-      return m ? m.row.id : prev;
-    });
+    const run = () => {
+      if (!value.trim()) {
+        setSelectedRowId(getDefaultCountryRow().id);
+        return;
+      }
+      setSelectedRowId((prev) => {
+        const m = matchCountryFromE164(value, prev);
+        return m ? m.row.id : prev;
+      });
+    };
+    queueMicrotask(run);
   }, [value]);
 
   const parsed = value.trim()

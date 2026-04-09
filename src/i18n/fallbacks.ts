@@ -79,6 +79,10 @@ const FORM_FALLBACK: Record<Locale, SiteDictionary["form"]> = {
     submitSuccess: "Бриф отправлен. Свяжемся с вами после просмотра вводных.",
     submitError:
       "Не удалось отправить форму. Попробуйте ещё раз или напишите нам напрямую.",
+    captchaRequired: "Подтвердите, что вы не робот.",
+    captchaFailed: "Проверка не пройдена. Обновите капчу и попробуйте снова.",
+    serviceUnavailable:
+      "Сервер временно не принимает заявки. Напишите нам напрямую или попробуйте позже.",
     validation: FORM_VALIDATION.ru,
   },
   en: {
@@ -108,6 +112,10 @@ const FORM_FALLBACK: Record<Locale, SiteDictionary["form"]> = {
     submitLoading: "Sending...",
     submitSuccess: "Brief sent. We’ll get back to you after reviewing the details.",
     submitError: "Could not send the form. Please try again or contact us directly.",
+    captchaRequired: "Please complete the “I’m not a robot” check.",
+    captchaFailed: "Verification failed. Refresh the captcha and try again.",
+    serviceUnavailable:
+      "We can’t accept submissions right now. Please contact us directly or try again later.",
     validation: FORM_VALIDATION.en,
   },
 };

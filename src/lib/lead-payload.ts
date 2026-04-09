@@ -14,4 +14,6 @@ export type LeadSubmitBody = {
   telegramOrMax: string;
   /** Free text; may include serialized quiz answers for Quiz source */
   comment: string;
+  /** Yandex SmartCaptcha token when server-side verification is enabled */
+  smartCaptchaToken?: string;
 };

@@ -529,6 +529,12 @@ export type SiteDictionary = {
     submitLoading: string;
     submitSuccess: string;
     submitError: string;
+    /** Shown when SmartCaptcha is visible but not completed before submit. */
+    captchaRequired: string;
+    /** Server rejected captcha token (expired, bot check, or misconfiguration). */
+    captchaFailed: string;
+    /** Telegram bot or captcha secrets missing / server misconfiguration. */
+    serviceUnavailable: string;
     validation: {
       required: string;
       phone: string;

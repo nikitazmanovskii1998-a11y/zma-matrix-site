@@ -1,5 +1,6 @@
+import { ServiceDetailJsonLd } from "@/components/seo/json-ld";
 import { getDictionary } from "@/i18n/get-dictionary";
-import { hasLocale, locales } from "@/i18n/locales";
+import { hasLocale, locales, type Locale } from "@/i18n/locales";
 import { localizedPageMetadata } from "@/lib/page-metadata";
 import { isServiceSlug, serviceSlugs } from "@/lib/service-slugs";
 import type { Metadata } from "next";
@@ -48,6 +49,13 @@ export default async function ServiceDetailPage({
 
   return (
     <div className="min-w-0 space-y-6 md:space-y-8">
+      <ServiceDetailJsonLd
+        locale={lang as Locale}
+        slug={service}
+        name={detail.title}
+        description={detail.subtitle}
+        breadcrumbServicesName={dictionary.nav.services}
+      />
       <section className="surface-block surface-section">
         <h1 className="page-hero-title max-w-5xl">{detail.title}</h1>
         <p className="section-lead mt-5 min-w-0 max-w-4xl">{detail.subtitle}</p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { type Locale, locales } from "@/i18n/locales";
 import { getSiteUrl } from "@/lib/site-url";
 
 /** Shared Open Graph + Twitter card fields (text); OG image comes from `opengraph-image` route. */
@@ -18,6 +19,16 @@ export function socialPreview(title: string, description: string): Pick<Metadata
   };
 }
 
+function isLocale(value: string): value is Locale {
+  return (locales as readonly string[]).includes(value);
+}
+
+function urlForLang(lang: Locale, pathAfterLang: string): string {
+  const base = getSiteUrl();
+  const tail = pathAfterLang.replace(/^\/+|\/+$/g, "");
+  return tail ? `${base}/${lang}/${tail}` : `${base}/${lang}`;
+}
+
 /**
  * @param pathAfterLang — segment after `/{lang}`, e.g. `""` for home, `"services"`, `"contact"`.
  */
@@ -27,14 +38,22 @@ export function localizedPageMetadata(
   title: string,
   description: string,
 ): Metadata {
-  const base = getSiteUrl();
-  const tail = pathAfterLang.replace(/^\/+|\/+$/g, "");
-  const canonical = tail ? `${base}/${lang}/${tail}` : `${base}/${lang}`;
+  const l = isLocale(lang) ? lang : "en";
+  const canonical = urlForLang(l, pathAfterLang);
+  const ru = urlForLang("ru", pathAfterLang);
+  const en = urlForLang("en", pathAfterLang);
 
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: {
+        ru,
+        en,
+        "x-default": ru,
+      },
+    },
     openGraph: {
       title,
       description,

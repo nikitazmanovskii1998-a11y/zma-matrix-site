@@ -968,6 +968,10 @@ export const enDictionary = {
     submitSuccess: "Brief sent. We’ll get back to you after reviewing the details.",
     submitError:
       "Could not send the form. Please try again or contact us directly.",
+    captchaRequired: "Please complete the “I’m not a robot” check.",
+    captchaFailed: "Verification failed. Refresh the captcha and try again.",
+    serviceUnavailable:
+      "We can’t accept submissions right now. Please contact us directly or try again later.",
     validation: {
       required: "Please fill in this field",
       phone: "Please check the phone number",
