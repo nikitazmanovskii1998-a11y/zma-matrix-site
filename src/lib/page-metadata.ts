@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { type Locale, locales } from "@/i18n/locales";
+import { defaultLocale, type Locale, locales } from "@/i18n/locales";
 import { getSiteUrl } from "@/lib/site-url";
 
 /** Shared Open Graph + Twitter card fields (text); OG image comes from `opengraph-image` route. */
@@ -38,7 +38,7 @@ export function localizedPageMetadata(
   title: string,
   description: string,
 ): Metadata {
-  const l = isLocale(lang) ? lang : "en";
+  const l = isLocale(lang) ? lang : defaultLocale;
   const canonical = urlForLang(l, pathAfterLang);
   const ru = urlForLang("ru", pathAfterLang);
   const en = urlForLang("en", pathAfterLang);

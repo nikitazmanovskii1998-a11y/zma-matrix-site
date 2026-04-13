@@ -6,6 +6,7 @@
 import type { Metadata, Viewport } from "next";
 import { Commissioner, Unbounded } from "next/font/google";
 import { getSiteUrl } from "@/lib/site-url";
+import { defaultLocale } from "@/i18n/locales";
 import "./globals.css";
 
 const displayFont = Unbounded({
@@ -55,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang={defaultLocale}
       className={`${displayFont.variable} ${secondaryFont.variable} h-full antialiased`}
     >
       <body className="min-h-full min-w-0 overflow-x-clip">{children}</body>

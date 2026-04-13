@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { hasLocale } from "@/i18n/locales";
-import { getPreferredLocale } from "@/lib/get-preferred-locale";
+import { defaultLocale, hasLocale } from "@/i18n/locales";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -20,7 +19,8 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const locale = getPreferredLocale(request.headers.get("accept-language"));
+  /** Always prefix with default locale (RU). No Accept-Language negotiation — see `defaultLocale`. */
+  const locale = defaultLocale;
   const redirectUrl = request.nextUrl.clone();
   redirectUrl.pathname = pathname === "/" ? `/${locale}` : `/${locale}${pathname}`;
 
