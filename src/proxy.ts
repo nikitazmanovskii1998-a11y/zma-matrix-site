@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { defaultLocale, hasLocale } from "@/i18n/locales";
+import { hasLocale } from "@/i18n/locales";
+
+/** Literal default locale segment for unprefixed URLs — must match `src/app/page.tsx` and `defaultLocale` in locales. */
+const DEFAULT_LOCALE_SEGMENT = "ru";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -19,8 +22,8 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  /** Always prefix with default locale (RU). No Accept-Language negotiation — see `defaultLocale`. */
-  const locale = defaultLocale;
+  /** Always RU for unprefixed paths — no Accept-Language, no hosting defaultLocale drift. */
+  const locale = DEFAULT_LOCALE_SEGMENT;
   const redirectUrl = request.nextUrl.clone();
   redirectUrl.pathname = pathname === "/" ? `/${locale}` : `/${locale}${pathname}`;
 
