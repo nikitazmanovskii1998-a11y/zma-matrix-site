@@ -2,10 +2,6 @@ import { NextResponse } from "next/server";
 import type { LeadSubmitBody } from "@/lib/lead-payload";
 import { formatLeadTelegramMessage } from "@/lib/format-lead-telegram";
 import { isValidInternationalPhone } from "@/lib/phone-international";
-import {
-  getYandexSmartCaptchaSecret,
-  verifyYandexSmartCaptchaToken,
-} from "@/lib/yandex-smartcaptcha-verify";
 
 const MAX_MESSAGE_LEN = 3900;
 
@@ -29,10 +25,7 @@ function jsonResponse(
 function isLeadBody(x: unknown): x is LeadSubmitBody {
   if (!x || typeof x !== "object") return false;
   const o = x as Record<string, unknown>;
-  const tokenOk =
-    o.smartCaptchaToken === undefined || typeof o.smartCaptchaToken === "string";
   return (
-    tokenOk &&
     (o.source === "Contact" || o.source === "Quiz") &&
     (o.locale === "ru" || o.locale === "en") &&
     typeof o.serviceLine === "string" &&
@@ -42,16 +35,6 @@ function isLeadBody(x: unknown): x is LeadSubmitBody {
     typeof o.telegramOrMax === "string" &&
     typeof o.comment === "string"
   );
-}
-
-function clientIpFromRequest(request: Request): string | undefined {
-  const fwd = request.headers.get("x-forwarded-for");
-  if (fwd) {
-    const first = fwd.split(",")[0]?.trim();
-    if (first) return first;
-  }
-  const real = request.headers.get("x-real-ip")?.trim();
-  return real || undefined;
 }
 
 async function sendTelegramMessage(text: string): Promise<{ ok: boolean; status: number; body: string }> {
@@ -154,23 +137,6 @@ export async function POST(request: Request) {
         : prodError("Invalid phone"),
       400,
     );
-  }
-
-  const captchaSecret = getYandexSmartCaptchaSecret();
-  if (captchaSecret) {
-    const ip = clientIpFromRequest(request);
-    const ok = await verifyYandexSmartCaptchaToken(captchaSecret, body.smartCaptchaToken, ip);
-    if (!ok) {
-      return jsonResponse(
-        isDev
-          ? {
-              ...devPayload("validation", "Yandex SmartCaptcha verification failed or token missing"),
-              error: "Captcha verification failed",
-            }
-          : prodError("Captcha verification failed"),
-        400,
-      );
-    }
   }
 
   try {

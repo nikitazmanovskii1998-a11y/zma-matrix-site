@@ -10,6 +10,7 @@ export const privacyPageEn: SiteDictionary["privacyPage"] = {
     updatedValue: "March 30, 2026",
     intro:
       "This policy describes the processing of personal and technical data in connection with using the ZMA Resulting website, contact forms, the on-site quiz, and brand contact channels. The language stays readable: we document what actually happens when you reach out or browse the site — not a fictional compliance program.",
+    contactCtaLabel: "Ask about data handling — go to contacts",
   },
   sectionOrder: [
     "general",

@@ -26,8 +26,8 @@ export function DialogModal({
         Avoids nested max-h + overflow (e.g. project detail) clipping the bottom / blocking scroll to CTAs.
       */}
       <div className="surface-block surface-section flex max-h-[min(92dvh,calc(100dvh-env(safe-area-inset-bottom)-1.5rem))] w-full min-h-0 min-w-0 max-w-2xl flex-col overflow-hidden">
-        <div className="flex shrink-0 items-center justify-between gap-3">
-          <h3 className="page-section-h3 min-w-0 pr-2">{title}</h3>
+        <div className="flex min-w-0 shrink-0 items-center justify-between gap-3">
+          <h3 className="page-section-h3 min-w-0 flex-1 break-words pr-2">{title}</h3>
           <Button onClick={onClose} variant="ghost" size="sm">
             {closeLabel}
           </Button>

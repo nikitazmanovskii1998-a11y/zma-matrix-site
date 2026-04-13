@@ -16,11 +16,17 @@ type HeroCtaProps = {
   href: string;
   text: string;
   primary?: boolean;
+  className?: string;
 };
 
-function HeroCta({ href, text, primary = false }: HeroCtaProps) {
+function HeroCta({ href, text, primary = false, className = "" }: HeroCtaProps) {
   return (
-    <ButtonLink href={href} variant={primary ? "primary" : "secondary"} size="lg">
+    <ButtonLink
+      href={href}
+      variant={primary ? "primary" : "secondary"}
+      size="lg"
+      className={`w-full min-w-0 max-w-full sm:w-auto sm:max-w-md ${className}`.trim()}
+    >
       {text}
     </ButtonLink>
   );
@@ -83,12 +89,12 @@ export function HomeHero({ locale, dictionary }: HomeHeroProps) {
               </h1>
             </div>
 
-            <p className="home-hero-lead home-hero-lead--wide order-2 m-0 md:order-none md:col-start-1 md:row-start-2">
+            <p className="home-hero-lead home-hero-lead--wide page-hero-lead order-2 m-0 md:order-none md:col-start-1 md:row-start-2">
               {hero.support}
             </p>
 
-            <div className="home-hero-actions order-3 mt-1.5 flex w-full min-w-0 shrink-0 flex-col items-start gap-3 text-left md:order-none md:col-start-1 md:row-start-3 md:mt-0">
-              <div className="flex flex-wrap items-start gap-x-3 gap-y-2.5">
+            <div className="home-hero-actions order-3 mt-1.5 flex w-full min-w-0 shrink-0 flex-col items-stretch gap-3 text-left md:order-none md:col-start-1 md:row-start-3 md:mt-0 md:items-start">
+              <div className="flex w-full min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
                 <HeroCta
                   href={`${toLocalizedPath(locale, "")}#quiz`}
                   text={hero.primaryCta}

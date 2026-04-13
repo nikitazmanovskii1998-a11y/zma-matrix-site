@@ -10,6 +10,10 @@ export const approachPageEn: SiteDictionary["approachPage"] = {
       "ZMA Resulting treats custom website development as an extension of brand and product logic — not a skin you rent from a theme shop.",
     optionalNote:
       "Below: how we read a project, what the work hinges on, and why this reads closer to a systems studio than a checkbox timeline agency.",
+    primaryCta: "Get a read on your inputs and working format",
+    secondaryCta: "Open services and the contour",
+    firstStepHint:
+      "After the click — brief or contact: we capture the task and reply with a clear next step.",
   },
   methodIntroSection: {
     sectionTitle: "How we think about a project",

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import { resolveMobileMenu, resolveSiteHeaderCopy } from "@/i18n/fallbacks";
 import type { Locale } from "@/i18n/locales";
@@ -106,6 +107,20 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
 
   const homeHref = toLocalizedPath(locale, "");
 
+  /** Logo always means «первый экран главной»: на главной сбрасываем hash и скроллим наверх. */
+  const onBrandHomeClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
+    closeMenus();
+    const pathNoQuery = (pathname.split("?")[0] ?? "").replace(/\/$/, "") || "/";
+    const homeNorm = homeHref.replace(/\/$/, "") || "/";
+    if (pathNoQuery !== homeNorm) return;
+    e.preventDefault();
+    if (typeof window === "undefined") return;
+    if (window.location.hash) {
+      window.history.replaceState(null, "", homeHref);
+    }
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
   const servicesNavHighlighted = isServicesActive || servicesOpen;
 
   const renderServicesFlyout = (panelId: string, align: "left" | "right") => (
@@ -135,6 +150,7 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
         <div className="flex items-center justify-between gap-3 md:hidden">
           <Link
             href={homeHref}
+            onClick={onBrandHomeClick}
             className="inline-flex min-w-0 shrink-0 items-center"
             aria-label={brandLabel}
           >
@@ -219,7 +235,7 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
             <div className="header-desktop-zone header-desktop-zone--left">
               <Link
                 href={homeHref}
-                onClick={closeMenus}
+                onClick={onBrandHomeClick}
                 className="inline-flex min-w-0 shrink-0 items-center underline-offset-4 transition-opacity hover:opacity-90 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(114,229,255,0.35)]"
                 aria-label={brandLabel}
               >
@@ -288,7 +304,7 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
         <div className="flex items-center justify-between">
           <Link
             href={homeHref}
-            onClick={closeMenus}
+            onClick={onBrandHomeClick}
             className="inline-flex min-w-0 shrink items-center"
             aria-label={brandLabel}
           >

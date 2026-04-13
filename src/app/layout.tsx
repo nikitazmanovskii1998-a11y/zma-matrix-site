@@ -1,3 +1,8 @@
+/**
+ * Site verification: set env `GOOGLE_SITE_VERIFICATION` and/or `YANDEX_VERIFICATION`
+ * to the token from Search Console / Yandex.Webmaster (HTML tag method).
+ * Values are read at build/runtime into `metadata.verification` — no hardcoded tokens.
+ */
 import type { Metadata, Viewport } from "next";
 import { Commissioner, Unbounded } from "next/font/google";
 import { getSiteUrl } from "@/lib/site-url";

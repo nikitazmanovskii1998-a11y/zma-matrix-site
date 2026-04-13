@@ -1,4 +1,6 @@
+import { ButtonLink } from "@/components/ui/button";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { toLocalizedPath } from "@/lib/locale-path";
 import { hasLocale } from "@/i18n/locales";
 import { localizedPageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
@@ -30,7 +32,7 @@ export default async function OfferPage({
 
   return (
     <div className="min-w-0 space-y-6 md:space-y-8">
-      <section className="surface-block surface-section">
+      <section className="surface-block surface-section min-w-0 overflow-x-clip">
         <p className="idea-detail text-neon-line">{page.hero.eyebrow}</p>
         <h1 className="page-hero-title mt-3">{page.hero.title}</h1>
         <p className="page-hero-lead mt-4 max-w-3xl">{page.hero.subtitle}</p>
@@ -38,6 +40,16 @@ export default async function OfferPage({
           {page.hero.updatedLabel}: {page.hero.updatedValue}
         </p>
         <p className="idea-support mt-5 max-w-4xl whitespace-pre-line">{page.hero.intro}</p>
+        <div className="mt-6 flex w-full min-w-0 max-w-full">
+          <ButtonLink
+            href={toLocalizedPath(lang, "contact")}
+            variant="primary"
+            size="lg"
+            className="w-full max-w-full sm:w-auto sm:max-w-xl"
+          >
+            {page.hero.contactCtaLabel}
+          </ButtonLink>
+        </div>
         <p className="idea-detail mt-5 max-w-3xl">{page.microcopy.shortOfferNote}</p>
         <p className="body-hint mt-2 max-w-3xl">{page.microcopy.disclaimerLine}</p>
       </section>

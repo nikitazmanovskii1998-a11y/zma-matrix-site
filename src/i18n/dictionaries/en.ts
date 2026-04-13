@@ -95,14 +95,59 @@ export const enDictionary = {
     calculateProject: "Calculate project",
     writeTelegram: "Write in Telegram",
   },
+  scrollCta: {
+    home: {
+      label: "Get a structured read on your task and next step",
+      segment: "",
+      hash: "#quiz",
+    },
+    servicesIndex: {
+      label: "Turn your brief into scope, format, and timing",
+      segment: "",
+      hash: "#quiz",
+    },
+    serviceDetail: {
+      label: "Lock scope and a clear answer for this service",
+      segment: "",
+      hash: "#quiz",
+    },
+    projects: {
+      label: "See if this build pattern fits you",
+      segment: "",
+      hash: "#quiz",
+    },
+    about: {
+      label: "Check fit with how we work",
+      segment: "",
+      hash: "#quiz",
+    },
+    contact: {
+      label: "Send the brief — get a structured request",
+      segment: "",
+      hash: "#quiz",
+    },
+    approach: {
+      label: "See how we would run your project",
+      segment: "",
+      hash: "#quiz",
+    },
+    offer: {
+      label: "Request terms alignment in writing",
+      segment: "contact",
+    },
+    privacy: {
+      label: "Ask a question about data handling",
+      segment: "contact",
+    },
+  },
   homeHero: {
     heading:
-      "Not a template website.\nA digital environment for a brand, product, or project.",
+      "Websites and a digital contour built for the job —\nnot a skin, but structure and leads.",
     support:
-      "ZMA Resulting designs websites for projects that need more than standard assembly. This is not where familiar brief-based pages are produced, but where structure, presentation, and a visual environment are built to extend the character of the business.",
-    primaryCta: "Estimate the project",
-    secondaryCta: "View projects",
-    helper: "Start with a short brief or reach out directly.",
+      "Who it’s for: brands, products, and teams that have outgrown generic sites. Why us: meaning and structure before decoration, one loop from positioning to launch and growth. What’s next: a short brief — then a clear next step on scope and format.",
+    primaryCta: "Get a scoped estimate and next step",
+    secondaryCta: "Browse project types",
+    helper: "First step: the brief on this page, or a direct channel if your inputs are already packed.",
     footerQuote:
       "“Hang a genre label on your work—\nand the temptation to obey the rule appears at once.”",
     supportBlocks: [
@@ -122,9 +167,9 @@ export const enDictionary = {
   },
   home: {
     servicesPreview: {
-      title: "Service directions",
+      title: "What we assemble for your specific constraint",
       intro:
-        "Website architecture can be expanded into a full growth contour: communication, automation, and promotion.",
+        "Below are layers we usually ship alone or as a system. Pick a direction — each detail page spells out format, outcome, and when it makes sense.",
       cards: [
         {
           title: "Websites",
@@ -149,7 +194,7 @@ export const enDictionary = {
       ],
     },
     difference: {
-      title: "Why this is different",
+      title: "Why here — not “another studio”",
       statements: [
         "Not from reference to layout, but from business meaning to structure.",
         "Not a separate page, but a digital contour of the project.",
@@ -158,7 +203,7 @@ export const enDictionary = {
       ],
     },
     tasks: {
-      title: "For what tasks",
+      title: "What problem you are solving in digital",
       cards: [
         {
           title: "Launch from zero",
@@ -295,9 +340,9 @@ export const enDictionary = {
       title:
         "If your project has outgrown template-based presentation, it’s time to build its own system.",
       text: "We’ll break down the task, structure, and growth points — then show what kind of website can strengthen positioning, trust, and conversions.",
-      primary: "Estimate the project",
-      secondary: "Discuss the task",
-      helper: "Start with a short brief or reach out directly.",
+      primary: "Get a scoped estimate and next step",
+      secondary: "Talk through inputs first",
+      helper: "After the brief — a response on format and timing, without forcing an immediate start.",
     },
   },
   homeSeo: {
@@ -483,11 +528,13 @@ export const enDictionary = {
     seo: {
       pageMetaTitle: "Services — ZMA Resulting | websites, Telegram, automation, SEO",
       pageMetaDescription:
-        "Websites, Telegram bots, assistants, business automation, and SEO as connected layers — scope, delivery, and outcomes.",
+        "Websites, Telegram bots, assistants, business automation, and SEO as connected layers — scope, delivery, and outcomes. Dedicated detail pages per service for discovery and comparison.",
     },
-    hero: "Services built as system layers, not disconnected tasks.",
+    hero: "Services as system layers — not one-off tickets.",
+    heroLead:
+      "Can we solve your task: websites, Telegram, lead automation, SEO — as connected layers. Why us: we wire the contour to your sales process, not a template. First step: pick a direction below or go straight to the brief.",
     intro:
-      "Each service direction solves concrete business constraints and can be delivered independently or as a unified contour.",
+      "Each direction removes a specific bottleneck: response speed, trust, data hygiene, or search visibility. You can start with one layer or assemble a full contour.",
     hubTitle: "Core service layers",
     hubIntro:
       "Pick a direction and open a dedicated page with practical scope, delivery logic, and expected business effect.",
@@ -894,7 +941,7 @@ export const enDictionary = {
     ],
     pricingNote:
       "Project cost depends on scope, structure depth, integrations, content complexity, and launch contour. Final estimate is formed after brief/quiz analysis.",
-    cta: "Calculate project",
+    cta: "Get an estimate from the brief",
     serviceCard: {
       more: "Explore",
       popupPrimary: "Estimate",
@@ -908,11 +955,13 @@ export const enDictionary = {
     seo: {
       pageMetaTitle: "Contacts — ZMA Resulting",
       pageMetaDescription:
-        "Reach out via Telegram, phone, email, or the short form — briefs and inquiries for websites, bots, and automation.",
+        "Reach out via Telegram, phone, email, or the short form — briefs and inquiries for websites, bots, and automation. Official site: zmaresulting.ru.",
     },
     hero: "Contacts",
+    heroLead:
+      "What you get here: a response to your task, options for how we work, and a clear next step. Who it’s for: teams building or upgrading a digital contour. What to do: the form below or a direct channel — whichever fits.",
     intro:
-      "If you already have a task in mind, you can move straight to the conversation.",
+      "The form preserves context so nothing gets lost. Direct channels work when you already have the inputs packed.",
     contactsTitle: "Contact options",
     formTitle: "Quick form",
     formSubmit: "Submit",
@@ -930,7 +979,7 @@ export const enDictionary = {
       "What should be built.",
       "Preferred timing.",
     ],
-    quizCta: "Fill out brief",
+    quizCta: "Send the brief — get a scoped reply and next step",
     requisitesTitle: "Requisites",
     requisites: {
       name: "INDIVIDUAL ENTREPRENEUR ZMANOVSKIY NIKITA ANATOLYEVICH",
@@ -968,8 +1017,6 @@ export const enDictionary = {
     submitSuccess: "Brief sent. We’ll get back to you after reviewing the details.",
     submitError:
       "Could not send the form. Please try again or contact us directly.",
-    captchaRequired: "Please complete the “I’m not a robot” check.",
-    captchaFailed: "Verification failed. Refresh the captcha and try again.",
     serviceUnavailable:
       "We can’t accept submissions right now. Please contact us directly or try again later.",
     validation: {

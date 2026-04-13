@@ -32,22 +32,32 @@ export default async function ProjectsPage({
   const dictionary = await getDictionary(lang);
   const page = dictionary.projectsPage;
   const contactHref = toLocalizedPath(locale, "contact");
-  const briefHref = `${contactHref}#quiz`;
+  const briefHref = `${toLocalizedPath(locale, "")}#quiz`;
 
   return (
     <div className="min-w-0 space-y-6 md:space-y-8">
-      <section className="surface-block surface-section">
+      <section className="surface-block surface-section min-w-0 overflow-x-clip">
         <p className="idea-detail text-neon-line">{page.hero.eyebrow}</p>
-        <h1 className="page-hero-title mt-3 max-w-4xl">
+        <h1 className="page-hero-title mt-3 max-w-4xl break-words">
           {page.hero.title}
         </h1>
-        <p className="page-hero-lead mt-4 max-w-3xl">{page.hero.subtitle}</p>
-        <p className="idea-support mt-4 max-w-4xl whitespace-pre-line">{page.hero.body}</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <ButtonLink href={contactHref} variant="primary" size="lg">
+        <p className="page-hero-lead mt-4 max-w-3xl break-words">{page.hero.subtitle}</p>
+        <p className="idea-support mt-4 max-w-4xl whitespace-pre-line break-words">{page.hero.body}</p>
+        <div className="mt-6 flex w-full min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-stretch">
+          <ButtonLink
+            href={contactHref}
+            variant="primary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
             {page.hero.primaryCta}
           </ButtonLink>
-          <ButtonLink href={briefHref} variant="secondary" size="lg">
+          <ButtonLink
+            href={briefHref}
+            variant="secondary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
             {page.hero.secondaryCta}
           </ButtonLink>
         </div>
@@ -56,8 +66,8 @@ export default async function ProjectsPage({
 
       <ProjectsModalGrid dictionary={dictionary} lang={locale} />
 
-      <section className="surface-block surface-section">
-        <h2 className="page-section-h3 max-w-3xl">
+      <section className="surface-block surface-section min-w-0 overflow-x-clip">
+        <h2 className="page-section-h3 max-w-3xl break-words">
           {page.disclosureBlock.title}
         </h2>
         <p className="idea-support mt-5 max-w-4xl">{page.disclosureBlock.body}</p>
@@ -66,20 +76,35 @@ export default async function ProjectsPage({
           <li>— {page.disclosureBlock.bullet2}</li>
           <li>— {page.disclosureBlock.bullet3}</li>
         </ul>
-        <ButtonLink href={contactHref} variant="secondary" size="md" className="mt-6">
+        <ButtonLink
+          href={contactHref}
+          variant="secondary"
+          size="md"
+          className="mt-6 w-full max-w-full sm:w-fit"
+        >
           {page.disclosureBlock.cta}
         </ButtonLink>
       </section>
 
-      <section className="surface-block surface-section">
-        <h2 className="page-section-h3 max-w-3xl">{page.finalCta.title}</h2>
+      <section className="surface-block surface-section min-w-0 overflow-x-clip">
+        <h2 className="page-section-h3 max-w-3xl break-words">{page.finalCta.title}</h2>
         <p className="section-lead mt-3 max-w-3xl">{page.finalCta.subtitle}</p>
         <p className="idea-support mt-4 max-w-4xl">{page.finalCta.body}</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <ButtonLink href={contactHref} variant="primary" size="lg">
+        <div className="mt-6 flex w-full min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <ButtonLink
+            href={contactHref}
+            variant="primary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
             {page.finalCta.primaryCta}
           </ButtonLink>
-          <ButtonLink href={briefHref} variant="secondary" size="lg">
+          <ButtonLink
+            href={briefHref}
+            variant="secondary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
             {page.finalCta.secondaryCta}
           </ButtonLink>
         </div>

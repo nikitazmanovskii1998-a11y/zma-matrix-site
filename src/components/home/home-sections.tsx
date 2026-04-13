@@ -22,6 +22,32 @@ export function HomeSections({ locale, dictionary }: HomeSectionsProps) {
   return (
     <div className="home-flow relative mx-auto mt-10 w-full max-w-[1560px] min-w-0">
       <section className="home-frame surface-block surface-section">
+        <h2 className="section-title">{home.tasks.title}</h2>
+        <div className="mt-4 grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {(home.tasks.cards ?? []).map((card) => (
+            <article key={card.title} className="surface-soft min-w-0 p-5">
+              <h3 className="card-title">{card.title}</h3>
+              <p className="idea-support mt-2">{card.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="home-frame surface-block surface-section">
+        <h2 className="section-title">
+          {home.difference.title}
+        </h2>
+        <div className="mt-4 grid min-w-0 gap-3">
+          {(home.difference.statements ?? []).map((statement) => (
+            <p
+              key={statement}
+              className="surface-soft idea-main min-w-0 px-5 py-4"
+            >
+              {statement}
+            </p>
+          ))}
+        </div>
+      </section>
+      <section className="home-frame surface-block surface-section">
         <h2 className="section-title">
           {home.servicesPreview.title}
         </h2>
@@ -45,32 +71,6 @@ export function HomeSections({ locale, dictionary }: HomeSectionsProps) {
         </div>
       </section>
       <section className="home-frame surface-block surface-section">
-        <h2 className="section-title">
-          {home.difference.title}
-        </h2>
-        <div className="mt-4 grid min-w-0 gap-3">
-          {(home.difference.statements ?? []).map((statement) => (
-            <p
-              key={statement}
-              className="surface-soft idea-main min-w-0 px-5 py-4"
-            >
-              {statement}
-            </p>
-          ))}
-        </div>
-      </section>
-      <section className="home-frame surface-block surface-section">
-        <h2 className="section-title">{home.tasks.title}</h2>
-        <div className="mt-4 grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {(home.tasks.cards ?? []).map((card) => (
-            <article key={card.title} className="surface-soft min-w-0 p-5">
-              <h3 className="card-title">{card.title}</h3>
-              <p className="idea-support mt-2">{card.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className="home-frame surface-block surface-section">
         <h2 className="section-title">{home.process.title}</h2>
         <div className="mt-4 grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {(home.process.steps ?? []).map((step) => (
@@ -82,14 +82,15 @@ export function HomeSections({ locale, dictionary }: HomeSectionsProps) {
         </div>
       </section>
       <section className="home-frame surface-block surface-section">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="section-title">
+        <div className="flex min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <h2 className="section-title min-w-0 max-w-full break-words">
             {home.projectsPreview.title}
           </h2>
           <ButtonLink
             href={toLocalizedPath(locale, "projects")}
             variant="secondary"
             size="md"
+            className="w-full max-w-full shrink-0 sm:w-auto"
           >
             {home.projectsPreview.cta}
           </ButtonLink>
@@ -121,12 +122,12 @@ export function HomeSections({ locale, dictionary }: HomeSectionsProps) {
           {home.finalCta.title}
         </h2>
         <p className="section-lead mt-4 max-w-4xl">{home.finalCta.text}</p>
-        <div className="mt-5 flex flex-wrap gap-3">
+        <div className="mt-5 flex w-full min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
           <ButtonAnchor
             href="#quiz"
             variant="primary"
             size="lg"
-            className="w-full sm:w-auto"
+            className="w-full min-w-0 max-w-full shrink-0 sm:w-auto sm:max-w-md"
           >
             {home.finalCta.primary || common.calculateProject}
           </ButtonAnchor>
@@ -134,7 +135,7 @@ export function HomeSections({ locale, dictionary }: HomeSectionsProps) {
             href={toLocalizedPath(locale, "contact")}
             variant="secondary"
             size="lg"
-            className="w-full sm:w-auto"
+            className="w-full min-w-0 max-w-full shrink-0 sm:w-auto sm:max-w-md"
           >
             {home.finalCta.secondary || common.writeTelegram}
           </ButtonAnchor>

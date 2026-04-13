@@ -26,12 +26,12 @@ export function ProjectsModalGrid({ dictionary, lang }: ProjectsModalGridProps) 
   const active = activeIndex === null ? null : cards[activeIndex] ?? null;
   const closeLabel = resolveModalCloseLabel(dictionary);
   const contactHref = toLocalizedPath(lang, "contact");
-  const briefHref = `${contactHref}#quiz`;
+  const briefHref = `${toLocalizedPath(lang, "")}#quiz`;
 
   return (
     <>
       <section className="surface-block surface-section min-w-0">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex min-w-0 max-w-full flex-wrap gap-2">
           {page.filterOrder.map((key) => {
             const filterKey: ProjectFilter = key;
             const bucket = page.filters[key] ?? page.filters.all;

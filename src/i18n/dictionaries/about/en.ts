@@ -10,6 +10,10 @@ export const aboutPageEn: SiteDictionary["aboutPage"] = {
       "We build a structured website and the digital contour around it so narrative, hierarchy, and user routes extend the character of your brand, product, or company — not another generic landing pass-through.",
     optionalNote:
       "Below: how we think, who we work with, and what separates this from volume web production.",
+    primaryCta: "See if this operating model fits you",
+    secondaryCta: "Go straight to the task brief",
+    firstStepHint:
+      "Brief or call first — no obligation to start until scope and format are clear.",
   },
   essenceSection: {
     sectionTitle: "What ZMA Resulting actually is",

@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FormSuccessModal } from "@/components/forms/form-success-modal";
-import { YandexSmartCaptchaField } from "@/components/forms/yandex-smart-captcha";
 import {
   FORM_ERROR_STRIP_CLASS,
   FORM_ERROR_TEXT_CLASS,
@@ -88,19 +87,6 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitErrorMessage, setSubmitErrorMessage] = useState<string | null>(null);
   const [contactsShowErrors, setContactsShowErrors] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaResetKey, setCaptchaResetKey] = useState(0);
-  const [captchaClientError, setCaptchaClientError] = useState(false);
-
-  const captchaEnabled = Boolean(
-    process.env.NEXT_PUBLIC_YANDEX_SMARTCAPTCHA_SITE_KEY?.trim(),
-  );
-
-  const onCaptchaTokenChange = useCallback((token: string | null) => {
-    setCaptchaToken(token);
-    setCaptchaClientError(false);
-    setSubmitErrorMessage(null);
-  }, []);
 
   const ariaClose = resolveModalCloseLabel(dictionary);
   const privacyHref = toLocalizedPath(locale, "privacy");
@@ -202,12 +188,7 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
         setConsentError(true);
         return;
       }
-      if (captchaEnabled && !captchaToken?.trim()) {
-        setCaptchaClientError(true);
-        return;
-      }
       setSubmitErrorMessage(null);
-      setCaptchaClientError(false);
       setSubmitting(true);
       const name = contactName;
       const phone = contactPhone;
@@ -220,17 +201,13 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
         email: contactEmail,
         telegramOrMax: String(answers["contacts.telegram"] ?? "").trim(),
         comment: formatQuizAnswersForLead(questions, answers),
-        smartCaptchaToken: captchaToken?.trim() || undefined,
       });
       setSubmitting(false);
       if (!result.ok) {
         setSubmitErrorMessage(leadSubmitFailureMessage(formUi, result));
-        setCaptchaResetKey((k) => k + 1);
         return;
       }
       trackLeadQuiz();
-      setCaptchaToken(null);
-      setCaptchaResetKey((k) => k + 1);
       finishBrief();
       return;
     }
@@ -379,57 +356,40 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
         ) : null}
 
         {isContactsStep ? (
-          <>
-            <div className="mt-6 min-w-0 max-w-2xl">
-              <div className="flex gap-3 sm:gap-3.5">
-                <GlassToggle
-                  id="quiz-privacy-toggle"
-                  checked={privacyConsent}
-                  onCheckedChange={onPrivacyToggle}
-                  invalid={consentInvalid}
-                  disabled={submitting}
-                  aria-labelledby="quiz-consent-label"
-                />
-                <p
-                  id="quiz-consent-label"
-                  className="min-w-0 flex-1 text-sm leading-relaxed text-text-secondary"
+          <div className="mt-6 min-w-0 max-w-2xl">
+            <div className="flex gap-3 sm:gap-3.5">
+              <GlassToggle
+                id="quiz-privacy-toggle"
+                checked={privacyConsent}
+                onCheckedChange={onPrivacyToggle}
+                invalid={consentInvalid}
+                disabled={submitting}
+                aria-labelledby="quiz-consent-label"
+              />
+              <p
+                id="quiz-consent-label"
+                className="min-w-0 flex-1 text-sm leading-relaxed text-text-secondary"
+              >
+                <span className="text-text-secondary">{formUi.consentPrefix}</span>
+                <Link
+                  href={privacyHref}
+                  className="interactive-line text-neon-line/90 underline decoration-neon-line/35 underline-offset-2 transition-colors hover:text-neon-line"
                 >
-                  <span className="text-text-secondary">{formUi.consentPrefix}</span>
-                  <Link
-                    href={privacyHref}
-                    className="interactive-line text-neon-line/90 underline decoration-neon-line/35 underline-offset-2 transition-colors hover:text-neon-line"
-                  >
-                    {formUi.consentPrivacyLink}
-                  </Link>
-                  <span className="text-text-secondary">{formUi.consentSuffix}</span>
-                </p>
-              </div>
-              {consentInvalid ? (
-                <p
-                  id="quiz-consent-error"
-                  className={`${FORM_ERROR_TEXT_CLASS} mt-2`}
-                  role="alert"
-                >
-                  {formUi.consentRequired}
-                </p>
-              ) : null}
+                  {formUi.consentPrivacyLink}
+                </Link>
+                <span className="text-text-secondary">{formUi.consentSuffix}</span>
+              </p>
             </div>
-            {captchaEnabled ? (
-              <div className="mt-4 min-w-0 space-y-2">
-                <YandexSmartCaptchaField
-                  locale={locale}
-                  resetKey={captchaResetKey}
-                  onTokenChange={onCaptchaTokenChange}
-                  disabled={submitting}
-                />
-                {captchaClientError ? (
-                  <p className={FORM_ERROR_TEXT_CLASS} role="alert">
-                    {formUi.captchaRequired}
-                  </p>
-                ) : null}
-              </div>
+            {consentInvalid ? (
+              <p
+                id="quiz-consent-error"
+                className={`${FORM_ERROR_TEXT_CLASS} mt-2`}
+                role="alert"
+              >
+                {formUi.consentRequired}
+              </p>
             ) : null}
-          </>
+          </div>
         ) : null}
 
         <p
@@ -444,12 +404,13 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
           </div>
         ) : null}
 
-        <div className="mt-6 flex min-w-0 flex-wrap items-center gap-2.5 sm:mt-7 sm:gap-3">
+        <div className="mt-6 flex min-w-0 w-full max-w-full flex-col gap-2.5 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
           <Button
             onClick={onBack}
             disabled={step === 0 || submitting}
             variant="secondary"
             size="md"
+            className="w-full min-w-0 shrink-0 sm:w-auto"
           >
             {quiz.back}
           </Button>
@@ -458,6 +419,7 @@ export function ProjectQuiz({ dictionary, locale }: ProjectQuizProps) {
             disabled={submitting || (!isLast && !fieldsValid)}
             variant="primary"
             size="md"
+            className="w-full min-w-0 shrink-0 sm:w-auto"
             loading={submitting && isLast && isContactsStep}
           >
             {submitting && isLast && isContactsStep

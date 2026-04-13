@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FormSuccessModal } from "@/components/forms/form-success-modal";
-import { YandexSmartCaptchaField } from "@/components/forms/yandex-smart-captcha";
 import {
   FORM_ERROR_STRIP_CLASS,
   FORM_ERROR_TEXT_CLASS,
@@ -44,10 +43,6 @@ export function SimpleContactForm({ dictionary, title }: SimpleContactFormProps)
   const privacyHref = toLocalizedPath(locale, "privacy");
   const optionalLabel = resolveQuizOptionalLabel(resolveQuiz(dictionary), locale);
 
-  const captchaEnabled = Boolean(
-    process.env.NEXT_PUBLIC_YANDEX_SMARTCAPTCHA_SITE_KEY?.trim(),
-  );
-
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -59,9 +54,6 @@ export function SimpleContactForm({ dictionary, title }: SimpleContactFormProps)
   const [consentError, setConsentError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [submitErrorMessage, setSubmitErrorMessage] = useState<string | null>(null);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaResetKey, setCaptchaResetKey] = useState(0);
-  const [captchaClientError, setCaptchaClientError] = useState(false);
 
   const loading = status === "loading";
   const consentInvalid = consentError && !privacyConsent;
@@ -95,14 +87,7 @@ export function SimpleContactForm({ dictionary, title }: SimpleContactFormProps)
   const clearFieldFeedback = () => {
     setSubmitAttempted(false);
     setSubmitErrorMessage(null);
-    setCaptchaClientError(false);
   };
-
-  const onCaptchaTokenChange = useCallback((token: string | null) => {
-    setCaptchaToken(token);
-    setCaptchaClientError(false);
-    setSubmitErrorMessage(null);
-  }, []);
 
   return (
     <>
@@ -124,12 +109,7 @@ export function SimpleContactForm({ dictionary, title }: SimpleContactFormProps)
             setConsentError(true);
             return;
           }
-          if (captchaEnabled && !captchaToken?.trim()) {
-            setCaptchaClientError(true);
-            return;
-          }
           setSubmitErrorMessage(null);
-          setCaptchaClientError(false);
           setStatus("loading");
           const result = await submitLead({
             source: "Contact",
@@ -140,12 +120,10 @@ export function SimpleContactForm({ dictionary, title }: SimpleContactFormProps)
             email: email.trim(),
             telegramOrMax: telegram.trim(),
             comment: comment.trim(),
-            smartCaptchaToken: captchaToken?.trim() || undefined,
           });
           setStatus("idle");
           if (!result.ok) {
             setSubmitErrorMessage(leadSubmitFailureMessage(form, result));
-            setCaptchaResetKey((k) => k + 1);
             return;
           }
           trackLeadContact();
@@ -158,8 +136,6 @@ export function SimpleContactForm({ dictionary, title }: SimpleContactFormProps)
           setComment("");
           setPrivacyConsent(false);
           setConsentError(false);
-          setCaptchaToken(null);
-          setCaptchaResetKey((k) => k + 1);
         }}
       >
         <h3 className="page-section-h3">{title}</h3>
@@ -289,22 +265,6 @@ export function SimpleContactForm({ dictionary, title }: SimpleContactFormProps)
             </p>
           ) : null}
         </div>
-
-        {captchaEnabled ? (
-          <div className="min-w-0 space-y-2">
-            <YandexSmartCaptchaField
-              locale={locale}
-              resetKey={captchaResetKey}
-              onTokenChange={onCaptchaTokenChange}
-              disabled={loading}
-            />
-            {captchaClientError ? (
-              <p className={FORM_ERROR_TEXT_CLASS} role="alert">
-                {form.captchaRequired}
-              </p>
-            ) : null}
-          </div>
-        ) : null}
 
         <Button
           type="submit"

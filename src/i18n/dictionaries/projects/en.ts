@@ -4,17 +4,17 @@ export const projectsPageEn: SiteDictionary["projectsPage"] = {
   seo: {
     pageMetaTitle: "ZMA Resulting projects — website, Telegram & automation case studies",
     pageMetaDescription:
-      "Digital project examples: business website case studies, brand environments, Telegram workflows, automation case studies, and SEO structure work—a case layer, not a screenshot gallery.",
+      "Digital project examples: business website case studies, brand environments, Telegram workflows, automation case studies, and SEO structure work—a case layer, not a screenshot gallery. Remote-friendly delivery for international teams.",
   },
   hero: {
     eyebrow: "Digital environments, not a trophy wall",
-    title: "Projects are not “pretty screens”—they show how a business is structured online",
+    title: "Build patterns and assembly logic — so you can tell “this is us”",
     subtitle:
-      "Website, Telegram, automation, and SEO-structure patterns—each format anchored in task, architecture, and room to scale.",
+      "Websites, Telegram, form→CRM, SEO skeletons: each block below spells task, structure, and what you walk away with.",
     body:
       "The ZMA Resulting projects grid is a typology of digital builds: corporate and expert sites, premium brand layers, focused product landings, Telegram bot and assistant flows, form→CRM automation case studies, SEO and site-structure work, and full-stack contours. No fabricated metrics—an honest scaffold until live work replaces it.",
-    primaryCta: "Discuss the task",
-    secondaryCta: "Short brief",
+    primaryCta: "Get a read on a similar build",
+    secondaryCta: "Send the brief — reply on format",
     microLine: "Scope and format follow your inputs—not a generic rate-card guess.",
   },
   filters: {

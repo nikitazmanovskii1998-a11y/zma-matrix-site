@@ -39,7 +39,7 @@ export default async function AboutPage({
 
   return (
     <div className="min-w-0 space-y-6 md:space-y-8">
-      <section className="surface-block surface-section">
+      <section className="surface-block surface-section min-w-0 overflow-x-clip">
         <p className="idea-detail text-neon-line">{page.hero.eyebrow}</p>
         <h1 className="page-hero-title mt-3 max-w-4xl">
           {page.hero.title}
@@ -47,6 +47,25 @@ export default async function AboutPage({
         <p className="page-hero-lead mt-4 max-w-4xl">{page.hero.subtitle}</p>
         <p className="idea-support mt-4 max-w-4xl">{page.hero.lead}</p>
         <p className="idea-detail mt-4 max-w-3xl">{page.hero.optionalNote}</p>
+        <div className="mt-6 flex w-full min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-stretch">
+          <ButtonLink
+            href={`${toLocalizedPath(lang, "")}#quiz`}
+            variant="primary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
+            {page.hero.primaryCta}
+          </ButtonLink>
+          <ButtonLink
+            href={`${toLocalizedPath(lang, "")}#quiz`}
+            variant="secondary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
+            {page.hero.secondaryCta}
+          </ButtonLink>
+        </div>
+        <p className="idea-detail mt-4 max-w-3xl text-neon-line">{page.hero.firstStepHint}</p>
       </section>
 
       <section className="surface-block surface-section">
@@ -123,11 +142,21 @@ export default async function AboutPage({
       <section className="surface-block surface-section">
         <p className="page-close-emphasis max-w-3xl">{page.closingCtaSection.sectionTitle}</p>
         <p className="idea-support mt-4 max-w-3xl">{page.closingCtaSection.sectionText}</p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <ButtonLink href={toLocalizedPath(lang, "contact")} variant="primary" size="lg">
+        <div className="mt-5 flex w-full min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <ButtonLink
+            href={toLocalizedPath(lang, "contact")}
+            variant="primary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
             {page.closingCtaSection.primaryCta}
           </ButtonLink>
-          <ButtonLink href={`${toLocalizedPath(lang, "")}#quiz`} variant="secondary" size="lg">
+          <ButtonLink
+            href={`${toLocalizedPath(lang, "")}#quiz`}
+            variant="secondary"
+            size="lg"
+            className="w-full shrink-0 sm:w-auto sm:max-w-md"
+          >
             {page.closingCtaSection.secondaryCta}
           </ButtonLink>
         </div>

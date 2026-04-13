@@ -10,6 +10,7 @@ export const offerPageEn: SiteDictionary["offerPage"] = {
     updatedValue: "March 30, 2026",
     intro:
       "This document is a public offer in the sense of Russian civil law (art. 437 RF CC) where applicable to clients engaging the contractor registered in Russia. It sets baseline rules; scope, timeline, fees, and delivery mechanics are confirmed in correspondence, a statement of work, invoice, or separate agreement — depending on project depth. Site content is informational and does not replace individual scoping.",
+    contactCtaLabel: "Align start terms in writing — contacts",
   },
   sectionOrder: [
     "generalTerms",

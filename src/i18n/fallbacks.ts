@@ -79,8 +79,6 @@ const FORM_FALLBACK: Record<Locale, SiteDictionary["form"]> = {
     submitSuccess: "Бриф отправлен. Свяжемся с вами после просмотра вводных.",
     submitError:
       "Не удалось отправить форму. Попробуйте ещё раз или напишите нам напрямую.",
-    captchaRequired: "Подтвердите, что вы не робот.",
-    captchaFailed: "Проверка не пройдена. Обновите капчу и попробуйте снова.",
     serviceUnavailable:
       "Сервер временно не принимает заявки. Напишите нам напрямую или попробуйте позже.",
     validation: FORM_VALIDATION.ru,
@@ -112,8 +110,6 @@ const FORM_FALLBACK: Record<Locale, SiteDictionary["form"]> = {
     submitLoading: "Sending...",
     submitSuccess: "Brief sent. We’ll get back to you after reviewing the details.",
     submitError: "Could not send the form. Please try again or contact us directly.",
-    captchaRequired: "Please complete the “I’m not a robot” check.",
-    captchaFailed: "Verification failed. Refresh the captcha and try again.",
     serviceUnavailable:
       "We can’t accept submissions right now. Please contact us directly or try again later.",
     validation: FORM_VALIDATION.en,
@@ -447,6 +443,8 @@ const CONTACT_PAGE_BASE: Record<Locale, SiteDictionary["contactPage"]> = {
         "Связь в Telegram, по телефону, email или короткая форма — брифы и запросы по сайтам, ботам и автоматизации.",
     },
     hero: "Контакты",
+    heroLead:
+      "Здесь вы получите ответ по задаче, варианты формата работ и понятный следующий шаг.",
     intro:
       "Если у вас уже есть задача — можно сразу выйти на разговор без лишних кругов.",
     contactsTitle: "Каналы связи",
@@ -466,7 +464,7 @@ const CONTACT_PAGE_BASE: Record<Locale, SiteDictionary["contactPage"]> = {
       "Что требуется собрать.",
       "Ориентир по срокам.",
     ],
-    quizCta: "Заполнить бриф",
+    quizCta: "Отправить бриф — получить ответ по объёму и шагам",
     requisitesTitle: "Реквизиты",
     requisites: {
       name: "ИНДИВИДУАЛЬНЫЙ ПРЕДПРИНИМАТЕЛЬ ЗМАНОВСКИЙ НИКИТА АНАТОЛЬЕВИЧ",
@@ -483,6 +481,8 @@ const CONTACT_PAGE_BASE: Record<Locale, SiteDictionary["contactPage"]> = {
         "Reach out via Telegram, phone, email, or the short form — briefs and inquiries for websites, bots, and automation.",
     },
     hero: "Contacts",
+    heroLead:
+      "Here you get a response to your task, how we can work together, and a clear next step.",
     intro:
       "If you already have a task in mind, you can move straight to the conversation.",
     contactsTitle: "Contact options",
@@ -502,7 +502,7 @@ const CONTACT_PAGE_BASE: Record<Locale, SiteDictionary["contactPage"]> = {
       "What should be built.",
       "Preferred timing.",
     ],
-    quizCta: "Fill out brief",
+    quizCta: "Send the brief — get a scoped reply and next step",
     requisitesTitle: "Requisites",
     requisites: {
       name: "INDIVIDUAL ENTREPRENEUR ZMANOVSKIY NIKITA ANATOLYEVICH",
@@ -558,6 +558,7 @@ export function resolveContactPage(dictionary: SiteDictionary): SiteDictionary["
       ),
     },
     hero: pickNonEmptyString(c?.hero, b.hero),
+    heroLead: pickNonEmptyString(c?.heroLead, b.heroLead),
     intro: pickNonEmptyString(c?.intro, b.intro),
     contactsTitle: pickNonEmptyString(c?.contactsTitle, b.contactsTitle),
     formTitle: pickNonEmptyString(c?.formTitle, b.formTitle),

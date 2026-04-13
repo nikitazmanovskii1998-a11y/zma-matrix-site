@@ -7,6 +7,13 @@ export type LabeledText = {
   text: string;
 };
 
+/** Sticky scroll CTA: `segment` is path after `/{lang}/` (empty string = locale home). */
+export type ScrollCtaSpec = {
+  label: string;
+  segment: "" | "contact" | "offer" | "services" | "projects" | "about" | "approach";
+  hash?: string;
+};
+
 export type QuizQuestion = {
   id: string;
   question: string;
@@ -125,6 +132,17 @@ export type SiteDictionary = {
     calculateProject: string;
     writeTelegram: string;
   };
+  scrollCta: {
+    home: ScrollCtaSpec;
+    servicesIndex: ScrollCtaSpec;
+    serviceDetail: ScrollCtaSpec;
+    projects: ScrollCtaSpec;
+    about: ScrollCtaSpec;
+    contact: ScrollCtaSpec;
+    approach: ScrollCtaSpec;
+    offer: ScrollCtaSpec;
+    privacy: ScrollCtaSpec;
+  };
   homeHero: {
     heading: string;
     support: string;
@@ -196,6 +214,9 @@ export type SiteDictionary = {
       subtitle: string;
       lead: string;
       optionalNote: string;
+      primaryCta: string;
+      secondaryCta: string;
+      firstStepHint: string;
     };
     methodIntroSection: {
       sectionTitle: string;
@@ -265,6 +286,8 @@ export type SiteDictionary = {
       pageMetaDescription: string;
     };
     hero: string;
+    /** First-screen lead: задача / для кого / отличие (под заголовком). */
+    heroLead: string;
     intro: string;
     hubTitle: string;
     hubIntro: string;
@@ -423,6 +446,9 @@ export type SiteDictionary = {
       subtitle: string;
       lead: string;
       optionalNote: string;
+      primaryCta: string;
+      secondaryCta: string;
+      firstStepHint: string;
     };
     essenceSection: {
       sectionTitle: string;
@@ -482,6 +508,8 @@ export type SiteDictionary = {
       pageMetaDescription: string;
     };
     hero: string;
+    /** Под заголовком: что получит пользователь и зачем писать. */
+    heroLead: string;
     intro: string;
     contactsTitle: string;
     formTitle: string;
@@ -529,11 +557,7 @@ export type SiteDictionary = {
     submitLoading: string;
     submitSuccess: string;
     submitError: string;
-    /** Shown when SmartCaptcha is visible but not completed before submit. */
-    captchaRequired: string;
-    /** Server rejected captcha token (expired, bot check, or misconfiguration). */
-    captchaFailed: string;
-    /** Telegram bot or captcha secrets missing / server misconfiguration. */
+    /** Telegram bot or server misconfiguration. */
     serviceUnavailable: string;
     validation: {
       required: string;
@@ -573,6 +597,7 @@ export type SiteDictionary = {
       updatedLabel: string;
       updatedValue: string;
       intro: string;
+      contactCtaLabel: string;
     };
     sectionOrder: readonly [
       "general",
@@ -627,6 +652,7 @@ export type SiteDictionary = {
       updatedLabel: string;
       updatedValue: string;
       intro: string;
+      contactCtaLabel: string;
     };
     sectionOrder: readonly [
       "generalTerms",
