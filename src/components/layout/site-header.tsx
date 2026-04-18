@@ -12,6 +12,7 @@ import { resolveServiceNavLinks } from "@/lib/service-nav-links";
 import { ServicesNavPanelBody } from "@/components/nav/services-nav-panel-body";
 import { HeaderLogo } from "@/components/layout/header-logo";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { HeaderSocialLinks } from "@/components/layout/header-social-links";
 
 /** Stable ids — single header per page; avoids useId SSR/client drift. */
 const SERVICES_PANEL_MD_ID = "zma-header-services-md";
@@ -224,8 +225,11 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
               );
             })}
           </nav>
-          <div className="shrink-0">
-            <LanguageSwitcher currentLocale={locale} labelRu={langRu} labelEn={langEn} pathname={pathname} />
+          <div className="flex shrink-0 items-center gap-2">
+            <HeaderSocialLinks variant="inline" />
+            <div className="border-l border-[rgba(114,229,255,0.14)] pl-3">
+              <LanguageSwitcher currentLocale={locale} labelRu={langRu} labelEn={langEn} pathname={pathname} />
+            </div>
           </div>
         </div>
 
@@ -283,8 +287,11 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
               </div>
             </nav>
 
-            <div className="header-desktop-zone header-desktop-zone--lang">
-              <LanguageSwitcher currentLocale={locale} labelRu={langRu} labelEn={langEn} pathname={pathname} />
+            <div className="header-desktop-zone header-desktop-zone--right">
+              <HeaderSocialLinks variant="inline" />
+              <div className="header-desktop-zone--lang">
+                <LanguageSwitcher currentLocale={locale} labelRu={langRu} labelEn={langEn} pathname={pathname} />
+              </div>
             </div>
           </div>
         </div>
@@ -374,6 +381,7 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
         >
           {contactsLabel}
         </Link>
+        <HeaderSocialLinks variant="drawer" />
       </aside>
     </header>
   );

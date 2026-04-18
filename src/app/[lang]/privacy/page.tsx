@@ -31,7 +31,7 @@ export default async function PrivacyPage({
   const page = dictionary.privacyPage;
 
   return (
-    <div className="min-w-0 space-y-6 md:space-y-8">
+    <div className="page-section-stack min-w-0">
       <section className="surface-block surface-section min-w-0 overflow-x-clip">
         <p className="idea-detail text-neon-line">{page.hero.eyebrow}</p>
         <h1 className="page-hero-title mt-3">{page.hero.title}</h1>

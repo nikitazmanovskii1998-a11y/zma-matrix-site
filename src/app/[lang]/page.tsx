@@ -1,5 +1,5 @@
 import { HomeHero } from "@/components/hero/home-hero";
-import { HomeBootReveal } from "@/components/home/home-boot-reveal";
+import { HomeHeroQuotePlate } from "@/components/hero/home-hero-quote-plate";
 import { HomeSections } from "@/components/home/home-sections";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { hasLocale } from "@/i18n/locales";
@@ -35,9 +35,10 @@ export default async function LocalizedHome({
   const dictionary = await getDictionary(lang);
   return (
     <>
-      <HomeBootReveal>
-        <HomeHero locale={lang} dictionary={dictionary} />
-      </HomeBootReveal>
+      <HomeHero locale={lang} dictionary={dictionary} />
+      <div className="mt-6 w-full min-w-0 md:mt-7">
+        <HomeHeroQuotePlate dictionary={dictionary} />
+      </div>
       <HomeSections locale={lang} dictionary={dictionary} />
     </>
   );

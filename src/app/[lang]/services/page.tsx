@@ -31,7 +31,7 @@ export default async function ServicesPage({
   const page = dictionary.servicesPage;
 
   return (
-    <div className="min-w-0 space-y-6 md:space-y-8">
+    <div className="page-section-stack min-w-0">
       <section className="surface-block surface-section min-w-0 overflow-x-clip">
         <h1 className="page-hero-title max-w-4xl break-words">
           {page.hero}

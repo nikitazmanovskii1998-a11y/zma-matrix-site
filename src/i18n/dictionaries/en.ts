@@ -51,6 +51,8 @@ export const enDictionary = {
     backHome: "Back home",
     backServices: "Back to services",
     backProjects: "Back to projects",
+    fixedDockContacts: "Contacts",
+    fixedDockBrief: "Send request",
   },
   preloader: {
     entering: "Entering structure",
@@ -95,59 +97,16 @@ export const enDictionary = {
     calculateProject: "Calculate project",
     writeTelegram: "Write in Telegram",
   },
-  scrollCta: {
-    home: {
-      label: "Get a structured read on your task and next step",
-      segment: "",
-      hash: "#quiz",
-    },
-    servicesIndex: {
-      label: "Turn your brief into scope, format, and timing",
-      segment: "",
-      hash: "#quiz",
-    },
-    serviceDetail: {
-      label: "Lock scope and a clear answer for this service",
-      segment: "",
-      hash: "#quiz",
-    },
-    projects: {
-      label: "See if this build pattern fits you",
-      segment: "",
-      hash: "#quiz",
-    },
-    about: {
-      label: "Check fit with how we work",
-      segment: "",
-      hash: "#quiz",
-    },
-    contact: {
-      label: "Send the brief — get a structured request",
-      segment: "",
-      hash: "#quiz",
-    },
-    approach: {
-      label: "See how we would run your project",
-      segment: "",
-      hash: "#quiz",
-    },
-    offer: {
-      label: "Request terms alignment in writing",
-      segment: "contact",
-    },
-    privacy: {
-      label: "Ask a question about data handling",
-      segment: "contact",
-    },
-  },
   homeHero: {
     heading:
-      "Websites and a digital contour built for the job —\nnot a skin, but structure and leads.",
+      "Custom websites and digital systems for business tasks.\nWebsite, Telegram, and automation — one connected workflow.",
     support:
       "Who it’s for: brands, products, and teams that have outgrown generic sites. Why us: meaning and structure before decoration, one loop from positioning to launch and growth. What’s next: a short brief — then a clear next step on scope and format.",
+    supportBlock:
+      "Not a template storefront: we design an individual solution for your process — from a standalone site to a full system with Telegram bots, assistants, and automation.\nSend a short brief and get scope, format, and the next step.",
     primaryCta: "Get a scoped estimate and next step",
     secondaryCta: "Browse project types",
-    helper: "First step: the brief on this page, or a direct channel if your inputs are already packed.",
+    helper: "Brief here or message us directly — whichever is easier.",
     footerQuote:
       "“Hang a genre label on your work—\nand the temptation to obey the rule appears at once.”",
     supportBlocks: [

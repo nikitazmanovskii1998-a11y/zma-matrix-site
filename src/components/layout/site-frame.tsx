@@ -9,7 +9,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { CookieConsentProvider } from "@/components/cookies/cookie-consent-provider";
 import { Preloader } from "@/components/ui/preloader";
 import { SiteFrameChrome } from "@/components/seo/site-frame-chrome";
-import { ScrollPrimaryCtaDock } from "@/components/layout/scroll-primary-cta-dock";
+import { FixedBottomActions } from "@/components/layout/fixed-bottom-actions";
 
 type SiteFrameProps = {
   locale: Locale;
@@ -38,7 +38,11 @@ export async function SiteFrame({ locale, dictionary, children }: SiteFrameProps
           <div className="mt-5 w-full min-w-0 flex-1">{children}</div>
           <SiteFooter locale={locale} dictionary={dictionary} />
         </PageContainer>
-        <ScrollPrimaryCtaDock locale={locale} scroll={dictionary.scrollCta} />
+        <FixedBottomActions
+          locale={locale}
+          contactsLabel={dictionary.ui.fixedDockContacts}
+          briefLabel={dictionary.ui.fixedDockBrief}
+        />
       </div>
     </CookieConsentProvider>
   );

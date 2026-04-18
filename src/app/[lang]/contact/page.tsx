@@ -4,6 +4,7 @@ import { getDictionary } from "@/i18n/get-dictionary";
 import { hasLocale } from "@/i18n/locales";
 import { localizedPageMetadata } from "@/lib/page-metadata";
 import { toLocalizedPath } from "@/lib/locale-path";
+import { SOCIAL_CONTACT_URLS } from "@/lib/social-contact-urls";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -32,7 +33,7 @@ export default async function ContactPage({
   const page = dictionary.contactPage;
 
   return (
-    <div className="min-w-0 space-y-6 md:space-y-8">
+    <div className="page-section-stack min-w-0">
       <section className="surface-block surface-section min-w-0 overflow-x-clip">
         <h1 className="page-hero-title max-w-4xl break-words">
           {page.hero}
@@ -49,7 +50,7 @@ export default async function ContactPage({
             {page.quizCta}
           </ButtonLink>
           <ButtonAnchor
-            href="https://t.me/zma_resulting"
+            href={SOCIAL_CONTACT_URLS.telegram}
             variant="secondary"
             size="lg"
             className="w-full shrink-0 sm:w-auto sm:max-w-xs"
@@ -93,7 +94,7 @@ export default async function ContactPage({
               {page.formTitle}
             </ButtonLink>
             <ButtonAnchor
-              href="https://t.me/zma_resulting"
+              href={SOCIAL_CONTACT_URLS.telegram}
               variant="ghost"
               size="md"
               className="w-full shrink-0 sm:w-auto sm:max-w-xs"

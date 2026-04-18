@@ -6,6 +6,7 @@ import { resolveFooter } from "@/i18n/fallbacks";
 import { telHrefFromDisplay } from "@/i18n/safe-text";
 import type { SiteDictionary } from "@/i18n/types";
 import { toLocalizedPath, type RouteSlug } from "@/lib/locale-path";
+import { SOCIAL_CONTACT_URLS } from "@/lib/social-contact-urls";
 
 const FOOTER_NAV_SLUGS: readonly RouteSlug[] = ["", "approach", "services", "projects", "contact"] as const;
 
@@ -37,7 +38,7 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
         </div>
         <div className="mt-3 flex flex-col gap-2.5 sm:mt-3.5 sm:flex-row sm:flex-wrap sm:gap-2">
           <a
-            href="https://t.me/zma_resulting"
+            href={SOCIAL_CONTACT_URLS.telegram}
             className="interactive-line footer-chip text-text-secondary hover:text-text-primary"
           >
             {common.ctaTelegram}
@@ -99,7 +100,7 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
           <p className="footer-section-label">{common.contactTitle}</p>
           <div className="footer-contact-stack mt-2.5 md:mt-2.5">
             <a
-              href="https://t.me/zma_resulting"
+              href={SOCIAL_CONTACT_URLS.telegram}
               className="interactive-line footer-contact-line block max-w-full rounded-md px-0.5 py-1 text-left sm:px-1 sm:py-0.5"
             >
               {common.contactTelegramLabel}: {common.contactTelegramValue}

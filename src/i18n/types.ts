@@ -7,13 +7,6 @@ export type LabeledText = {
   text: string;
 };
 
-/** Sticky scroll CTA: `segment` is path after `/{lang}/` (empty string = locale home). */
-export type ScrollCtaSpec = {
-  label: string;
-  segment: "" | "contact" | "offer" | "services" | "projects" | "about" | "approach";
-  hash?: string;
-};
-
 export type QuizQuestion = {
   id: string;
   question: string;
@@ -101,6 +94,10 @@ export type SiteDictionary = {
     backHome: string;
     backServices: string;
     backProjects: string;
+    /** Bottom fixed dock: contact page */
+    fixedDockContacts: string;
+    /** Bottom fixed dock: homepage brief / quiz (compact CTA label, e.g. Request / Заявка) */
+    fixedDockBrief: string;
   };
   preloader: {
     entering: string;
@@ -132,23 +129,19 @@ export type SiteDictionary = {
     calculateProject: string;
     writeTelegram: string;
   };
-  scrollCta: {
-    home: ScrollCtaSpec;
-    servicesIndex: ScrollCtaSpec;
-    serviceDetail: ScrollCtaSpec;
-    projects: ScrollCtaSpec;
-    about: ScrollCtaSpec;
-    contact: ScrollCtaSpec;
-    approach: ScrollCtaSpec;
-    offer: ScrollCtaSpec;
-    privacy: ScrollCtaSpec;
-  };
   homeHero: {
+    /** Main headline — display font only; max two lines (`\n` optional). */
     heading: string;
+    /** Long paragraph (e.g. SEO / reuse); not shown in the hero. */
     support: string;
+    /**
+     * Support under H1: 4–5 short lines (`\n`), Commissioner — clearly secondary to the headline.
+     */
+    supportBlock: string;
     primaryCta: string;
     secondaryCta: string;
     helper: string;
+    /** Below-the-fold strip on the home page only (`HeroSupportStrip`). */
     supportBlocks: LabeledText[];
     /** Short supporting line at the bottom of the home hero (no attribution). */
     footerQuote: string;

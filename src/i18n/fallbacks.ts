@@ -413,6 +413,8 @@ const UI_SHELL: Record<Locale, SiteDictionary["ui"]> = {
     backHome: "На главную",
     backServices: "К услугам",
     backProjects: "К проектам",
+    fixedDockContacts: "Контакты",
+    fixedDockBrief: "Заявка",
   },
   en: {
     privacy: "Privacy policy",
@@ -432,6 +434,8 @@ const UI_SHELL: Record<Locale, SiteDictionary["ui"]> = {
     backHome: "Back to home",
     backServices: "Back to services",
     backProjects: "Back to projects",
+    fixedDockContacts: "Contacts",
+    fixedDockBrief: "Send request",
   },
 };
 

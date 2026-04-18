@@ -49,7 +49,7 @@ export default async function ServiceDetailPage({
   }
 
   return (
-    <div className="min-w-0 space-y-6 md:space-y-8">
+    <div className="page-section-stack min-w-0">
       <ServiceDetailJsonLd
         locale={lang as Locale}
         slug={service}

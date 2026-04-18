@@ -1,11 +1,7 @@
 import type { Locale } from "@/i18n/locales";
 import type { SiteDictionary } from "@/i18n/types";
-import { BRAND_LOGO } from "@/lib/brand-logo";
 import { toLocalizedPath } from "@/lib/locale-path";
-import { resolveServiceNavLinks } from "@/lib/service-nav-links";
-import { ServicesNavPanelBody } from "@/components/nav/services-nav-panel-body";
-import { HeaderLogo } from "@/components/layout/header-logo";
-import { ButtonLink } from "@/components/ui/button";
+import { ButtonAnchor } from "@/components/ui/button";
 
 type HomeHeroProps = {
   locale: Locale;
@@ -19,49 +15,22 @@ type HeroCtaProps = {
   className?: string;
 };
 
-function HeroCta({ href, text, primary = false, className = "" }: HeroCtaProps) {
+function HeroCtaAnchor({ href, text, primary = false, className = "" }: HeroCtaProps) {
   return (
-    <ButtonLink
+    <ButtonAnchor
       href={href}
       variant={primary ? "primary" : "secondary"}
-      size="lg"
-      className={`w-full min-w-0 max-w-full sm:w-auto sm:max-w-md ${className}`.trim()}
+      size="sm"
+      className={`home-hero-cta-btn w-full min-w-0 max-w-full sm:w-auto sm:max-w-[18.5rem] ${className}`.trim()}
     >
       {text}
-    </ButtonLink>
-  );
-}
-
-/** Desktop: brand mark — same asset as header/footer; aspect from SVG. Sits inside `.home-hero-right-rail`. */
-function HeroPhotoDesktop() {
-  return (
-    <div
-      className="home-hero-photo-shell home-hero-photo-shell--desktop relative hidden w-full min-w-0 shrink-0 md:block md:min-h-0"
-      style={{
-        aspectRatio: `${BRAND_LOGO.width} / ${BRAND_LOGO.height}`,
-      }}
-    >
-      <HeaderLogo className="absolute inset-0 h-full w-full object-contain object-center" />
-    </div>
-  );
-}
-
-function HeroPhotoMobile() {
-  return (
-    <div
-      className="home-hero-photo-shell home-hero-photo-shell--mobile-landscape relative w-full min-h-0 shrink-0"
-      style={{
-        aspectRatio: `${BRAND_LOGO.width} / ${BRAND_LOGO.height}`,
-      }}
-    >
-      <HeaderLogo className="absolute inset-0 h-full w-full object-contain object-center" />
-    </div>
+    </ButtonAnchor>
   );
 }
 
 /**
- * Hero: left column — headline, lead, CTAs, quote; right column — `home-hero-right-rail` (logo + `ServicesNavPanelBody`; desktop `flex-col-reverse`: services above logo).
- * Mobile: headline → lead → CTAs → services nav → logo → quote (`max-md:contents` on the rail; `order-4`/`order-5`).
+ * First screen only: headline (max 2 lines) → unified support text → CTAs → microtext.
+ * Headline is one display tier; quote is `HomeHeroQuotePlate` below.
  */
 export function HomeHero({ locale, dictionary }: HomeHeroProps) {
   const hero = dictionary.homeHero;
@@ -69,69 +38,41 @@ export function HomeHero({ locale, dictionary }: HomeHeroProps) {
     return null;
   }
 
-  const nav = dictionary.nav;
-  const serviceNavLinks = resolveServiceNavLinks(locale, dictionary);
+  const supportLines = hero.supportBlock
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const supportLead = supportLines[0] ?? "";
+  const supportDetail = supportLines.slice(1).join("\n");
 
   return (
     <section
-      className="home-frame home-hero relative w-full min-w-0 self-stretch pt-3 md:pt-5"
+      className="home-frame home-hero relative w-full min-w-0 self-stretch pt-2 sm:pt-3 md:pt-5"
       aria-labelledby="home-hero-heading"
     >
-      <div className="surface-block flex w-full min-w-0 flex-col py-5 pl-5 pr-8 sm:py-6 sm:pl-6 sm:pr-11 md:py-7 md:pl-8 md:pr-16 lg:py-8 lg:pl-10 lg:pr-20 xl:py-9 xl:pl-12 xl:pr-28">
-        <div className="home-hero-stack flex min-h-0 w-full min-w-0 flex-col">
-          <div className="home-hero-top grid min-w-0 grid-cols-1 gap-y-3 md:grid-cols-[minmax(0,1fr)_minmax(11.5rem,22rem)] md:items-start md:gap-x-8 md:gap-y-3.5 lg:gap-x-10 xl:gap-x-12">
-            <div className="home-hero-narrative order-1 min-w-0 shrink-0 max-md:pt-4 md:order-none md:col-start-1 md:row-start-1">
-              <h1
-                id="home-hero-heading"
-                className="home-hero-headline m-0 whitespace-pre-line"
-              >
-                {hero.heading}
-              </h1>
-            </div>
-
-            <p className="home-hero-lead home-hero-lead--wide page-hero-lead order-2 m-0 md:order-none md:col-start-1 md:row-start-2">
-              {hero.support}
-            </p>
-
-            <div className="home-hero-actions order-3 mt-1.5 flex w-full min-w-0 shrink-0 flex-col items-stretch gap-3 text-left md:order-none md:col-start-1 md:row-start-3 md:mt-0 md:items-start">
-              <div className="flex w-full min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
-                <HeroCta
-                  href={`${toLocalizedPath(locale, "")}#quiz`}
-                  text={hero.primaryCta}
-                  primary
-                />
-                <HeroCta href={toLocalizedPath(locale, "projects")} text={hero.secondaryCta} />
+      <div className="home-hero__shell surface-block flex w-full min-w-0 flex-col px-5 py-3.5 sm:px-8 sm:py-6 md:px-10 md:py-7 lg:px-12 lg:py-9 xl:px-14 xl:py-10">
+        <div className="home-hero-stack flex min-h-0 w-full min-w-0 flex-col items-center text-center">
+          <div className="flex min-w-0 w-full flex-col items-center text-center gap-y-2 sm:gap-y-3 md:gap-y-3.5">
+            <div className="home-hero-narrative min-w-0 shrink-0 max-md:pt-2">
+              <div className="home-hero-headline-wrap">
+                <h1 id="home-hero-heading" className="section-title m-0 whitespace-pre-line">
+                  {hero.heading}
+                </h1>
               </div>
-              <p className="m-0 max-w-lg text-sm leading-relaxed text-muted-soft">
-                {hero.helper}
-              </p>
-            </div>
-
-            <div className="home-hero-right-rail max-md:contents md:col-start-2 md:row-span-4 md:row-start-1 md:flex md:min-h-0 md:min-w-0 md:flex-col-reverse md:self-start">
-              <HeroPhotoDesktop />
-              <div className="order-5 md:hidden">
-                <HeroPhotoMobile />
+              <div className="home-hero-support-block">
+                {supportLead ? <p className="home-hero-support-line m-0">{supportLead}</p> : null}
+                {supportDetail ? (
+                  <p className="home-hero-support-detail home-hero-body-text m-0 whitespace-pre-line">{supportDetail}</p>
+                ) : null}
               </div>
-              {serviceNavLinks.length > 0 && (
-                <nav
-                  className="home-hero-services-layer order-4 min-w-0 w-full md:order-none"
-                  aria-label={nav.servicesPanelLabel}
-                >
-                  <ServicesNavPanelBody
-                    servicesPanelLabel={nav.servicesPanelLabel}
-                    links={serviceNavLinks}
-                    servicesHubHref={`/${locale}/services`}
-                    allServicesLabel={nav.allServices}
-                    innerExtraClassName="services-panel__inner--hero"
-                  />
-                </nav>
-              )}
             </div>
 
-            <div className="home-hero-quote-region order-6 w-full min-w-0 md:order-none md:col-start-1 md:row-start-4">
-              <blockquote className="home-hero-quote">
-                <p className="home-hero-quote__body whitespace-pre-line">{hero.footerQuote}</p>
-              </blockquote>
+            <div className="home-hero-cta-slab min-w-0 shrink-0 self-center">
+              <div className="home-hero-cta-slab__actions">
+                <HeroCtaAnchor href="#quiz" text={hero.primaryCta} primary />
+                <HeroCtaAnchor href={toLocalizedPath(locale, "projects")} text={hero.secondaryCta} />
+              </div>
+              <p className="home-hero-cta-slab__helper m-0">{hero.helper}</p>
             </div>
           </div>
         </div>
